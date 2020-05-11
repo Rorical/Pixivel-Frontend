@@ -22,13 +22,15 @@
 
 <script>
 	import CONFIG from '@/config.json'
+	import storage from 'good-storage'
 	export default {
 	    name: 'Rank.lTags',
 		props:{
 		},
 	    data() {
 			return {
-				tags:[]
+				targetblank: storage.get("targetblank") == "true"?true:false,
+				tags:this.$store.state.mainpage.tags
 			}
 		},
 	    methods: {
@@ -45,13 +47,17 @@
 							return;
 						}
 						this.tags = (response.data.trend_tags)
-						
+						this.$store.commit("mainpage/settags", this.tags)
 						$state.loaded();
 						$state.complete();
 					});
 			},
 			search(word){
-				this.$router.push({name:'搜索',query:{keyword:word},params:{tag:"true"}})
+				if(this.targetblank){
+					window.open(this.$router.resolve({name:'搜索',query:{keyword:word},params:{tag:"true"}}).href, '_blank');
+				}else{
+					this.$router.push({name:'搜索',query:{keyword:word},params:{tag:"true"}})
+				}
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
-	<div class="bigpics" :style="{'width': cliwidth + 'vmin'}">
-		<BigImgCard :image="image" v-for="image in sourceimg" :style="{'height': cliheight + 'vmin'}" />
+	<div class="bigpics" :style="{'width': cliwidth}" v-viewer="{'url': 'source', 'title':((t)=>{return image.title + '_' + t.src.substring(t.src.lastIndexOf('_')+2,t.src.lastIndexOf('.'))})}">
+		<BigImgCard :image="image" :key="index" v-for="(image,index) in sourceimg" :style="{'height': index==0?cliheight:''}" />
 	</div>
 </template>
 
@@ -26,10 +26,10 @@
 		},
 		computed:{
 			cliwidth(){
-				return this.image.height>this.image.width ? (this.image.width / this.image.height) *  this.Hpercent : this.Hpercent
+				return (this.image.height>this.image.width ? (this.image.width / this.image.height) *  this.Hpercent + 'vmin' : this.Hpercent + 'vmin')
 			},
 			cliheight(){
-				return this.image.width>this.image.height ? (this.image.height / this.image.width) *  this.Hpercent : this.Hpercent
+				return (this.image.width>this.image.height ? (this.image.height / this.image.width) *  this.Hpercent + 'vmin' : this.Hpercent + 'vmin')
 			},
 			sourceimg(){
 				if(this.image.meta_pages && this.image.meta_pages.length==0){

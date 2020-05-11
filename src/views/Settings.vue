@@ -13,7 +13,7 @@
 		                </div>
 		                <div class="card-body">
 		                    <div class="row">
-		                        <div class="col-md-6">
+		                        <div class="col-md">
 									<div class="form-group">
 										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> Aria设置</h4>
 										<input placeholder="Aria2的Url" v-model="datas.aria2" class="form-control">
@@ -22,11 +22,16 @@
 										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> 下载图片标题</h4>
 										<base-switch v-model="datas.titleid"></base-switch>
 									</div>
+									
 		                        </div>
-		                        <div class="col-md-6">
-<div class="form-group">
+		                        <div class="col-md">
+									<div class="form-group">
 										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> 背景颜色</h4>
 										<input placeholder="写入一个颜色的十六进制字符串" v-model="datas.bodycolor" class="form-control">
+									</div>
+									<div class="form-group">
+										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> 点击图片直接跳转新页面</h4>
+										<base-switch v-model="datas.targetblank"></base-switch>
 									</div>
 		                        </div>
 		                    </div>
@@ -54,6 +59,7 @@
 					aria2 : storage.get("aria2")?storage.get("aria2"):"http://localhost:16800/jsonrpc",
 					titleid: storage.get("titleid") == "true"?true:false,
 					bodycolor: storage.get("bodycolor")?storage.get("bodycolor"):"#FFFFFF",
+					targetblank: storage.get("targetblank") == "true"?true:false,
 				}
 			}
 		},

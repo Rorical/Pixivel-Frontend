@@ -50,7 +50,7 @@
                                     {{model.user.name}}<span class="font-weight-light"></span>
                                 </h1>
                                 <div class="h5 font-weight-300">
-                                    {{model.user.account}}
+                                    <badge type="info">{{model.user.account}}</badge><badge type="success">{{model.user.id}}</badge>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
 						<div>
-							<infinite-loading @infinite="xScrollinit" spinner="spiral">
+							<infinite-loading @infinite="xScrollinit" spinner="spiral" v-if="xsimgs.length<1">
 								<span slot="no-more">
 									
 								</span>
@@ -116,8 +116,7 @@
 		data() {
 			return {
 				id: this.$route.query.id,
-				model: {
-				},
+				model: {},
 				xsimgs:[],
 				radio:{
 					iorb:"i"
@@ -129,12 +128,30 @@
 				waterfallIdentifier: Math.round(Math.random() * 100),
 			}
 		},
+		created () {
+			this.model = this.findById()["model"]
+			this.xsimgs = this.findById()["xsimgs"]
+			this.radio.iorb = this.findById()["radio/iorb"]
+			this.imgs = this.findById()["imgs"]
+			this.bookmarks = this.findById()["bookmarks"]
+			this.page = this.findById()["page"]
+		},
 		watch: {
 			"$route.query.id": "handleIdChanged",
 			"radio.iorb": "handleIdChanged"
 		},
 		mounted(){
-			this.getUser()
+			if(!this.model.user){
+				this.getUser()
+			}
+			var scroll = this.$store.state.user.scroll[this.id]?this.$store.state.user.scroll[this.id]:0
+			window.addEventListener("scroll", this.handleScroll, false);
+			this.$nextTick(() => {
+				window.scrollTo(0, scroll)
+			})
+		},
+		destroyed() {
+			window.removeEventListener("scroll", this.handleScroll, false);
 		},
 		methods:{
 			getUser() {
@@ -153,9 +170,13 @@
 							return;
 						}
 						this.model = response.data
+						this.$store.commit("user/setImage", {id:this.id,key:"model",value:this.model})
 					}).catch(err => {
 						console.error(err.response.status);
 					});
+			},
+			handleScroll() {
+				this.$store.commit("user/setScroll", {id:this.id,top:document.documentElement.scrollTop})
 			},
 			xScrollinit($state){
 				this.axios
@@ -171,6 +192,7 @@
 							return;
 						}
 						this.xsimgs = response.data.illusts
+						this.$store.commit("user/setImage", {id:this.id,key:"xsimgs",value:this.xsimgs})
 						$state.loaded();
 						$state.complete();
 					}).catch(err => {
@@ -179,6 +201,7 @@
 					});
 			},
 			waterfallinfiniteHandler($state) {
+				var scroll = this.$store.state.user.scroll[this.id]?this.$store.state.user.scroll[this.id]:0
 				if(this.radio.iorb == "i"){
 					this.axios
 						.get(CONFIG.API_HOST, {
@@ -195,6 +218,11 @@
 							}
 							this.imgs = this.imgs.concat(response.data.illusts)
 							this.page = this.page + 1;
+							this.$store.commit("user/setImage", {id:this.id,key:"imgs",value:this.imgs})
+							this.$store.commit("user/setImage", {id:this.id,key:"page",value:this.page})
+							this.$nextTick(() => {
+								window.scrollTo(0, scroll)
+							})
 							$state.loaded();
 						}).catch(err => {
 							$state.complete();
@@ -219,6 +247,11 @@
 								$state.complete();
 							}
 							this.page = response.data["next_url"].split("&")[response.data["next_url"].split("&").length-1].split("=")[1];
+							this.$store.commit("user/setImage", {id:this.id,key:"bookmarks",value:this.imgs})
+							this.$store.commit("user/setImage", {id:this.id,key:"bpage",value:this.page})
+							this.$nextTick(() => {
+								window.scrollTo(0, scroll)
+							})
 							$state.loaded();
 						}).catch(err => {
 							$state.complete();
@@ -230,17 +263,32 @@
 				return url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
 			},
 			handleIdChanged(s) {
-				this.id = this.$route.query.id;
-				this.model = {}
+				console.log(s)
+				if(this.id != this.$route.query.id){
+					this.id = this.$route.query.id;
+					this.model = this.findById()["model"]
+					if(!this.model.user){
+						this.getUser()
+					}
+					
+				}
+				
+				
 				this.refreshWaterfall();
-				this.getUser()
+				
+				
 			},
 			refreshWaterfall() {
-				if(this.$refs.waterfall)
-					this.$refs.waterfall.$el.innerHTML = '';
+				this.$store.commit("user/setImage", {id:this.id,key:"radio/iorb",value:this.radio.iorb})
+				if(this.radio.iorb=="i"){
+					this.imgs = this.findById()["imgs"];
+					this.page = this.findById()["page"];
+				}else{
+					this.imgs = this.findById()["bookmarks"];
+					this.page = this.findById()["bpage"];
+				}
 				this.$nextTick(() => {
-					this.page = 0;
-					this.imgs = [];
+					this.$redrawVueMasonry()
 					this.waterfallIdentifier = this.waterfallIdentifier + 1;
 				});
 			},
@@ -250,6 +298,9 @@
 					this.$router.push({query:{id:id}})
 				}
 			},
+			findById(){
+				return this.$store.getters["user/findById"](this.id)
+			}
 		},
 		computed:{
 			background_image_url(){

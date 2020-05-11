@@ -8,8 +8,9 @@
 		<div class="imgerror" v-if="loadError">
 			<h1 class="errortext">Error</h1>
 		</div>
-		<div ref="image" v-if="lazy" class="one-img" v-lazy:background-image="source" :src="largesource" v-image-preview>
-		</div>
+		<img ref="image" :source="largesource" v-if="lazy" class="one-img" v-lazy="source">
+		</img>
+		
 		<div ref="image" v-if="!lazy" class="one-img no-tran" :style='{"background-image":source}'>
 		</div>
 	</div>

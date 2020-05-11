@@ -41,7 +41,7 @@
 				})
 				for(var sb = 0; sb < this.images.length; sb++){
 					var image = this.images[sb]
-					if(image.type!="ugoira"){
+					if(image.type!="ugoira" && image.type!="manga"){
 						var imgs = this.sourceimg(image)
 						var url
 						var uri = this.aria2url.split("@")

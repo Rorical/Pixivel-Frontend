@@ -35,7 +35,7 @@ export default {
     },
     data() {
       return {
-		rankimg: [],
+		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260
       };
@@ -56,13 +56,14 @@ export default {
 						return;
 					}
 					this.rankimg = (response.data.illusts)
-					
+					this.$store.commit("mainpage/setrankimg", this.rankimg)
 					$state.loaded();
 					$state.complete();
 				});
 		}
     },
     mounted() {
+		window.scrollTo(0, this.$store.state.scroll.top)
 	}
   };
 </script>

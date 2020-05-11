@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 import DashboardLayout from '@/layout/DashboardLayout'
 import AuthLayout from '@/layout/AuthLayout'
 Vue.use(Router)
@@ -48,5 +49,15 @@ export default new Router({
 		}
       ]
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+	if(savedPosition){
+		store.commit("scroll/setTop",savedPosition["y"])
+		//window.scrollTo(0, savedPosition["y"]);
+	  	//return(savedPosition)
+	}else{
+		store.commit("scroll/setTop",0)
+		return({y: 0})
+	}
+    }
 })

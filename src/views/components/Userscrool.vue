@@ -27,6 +27,7 @@
 	    data() {
 			return {
 				ScrollLock: true,
+				targetblank: storage.get("targetblank") == "true"?true:false,
 				Users:[]
 			}
 		},
@@ -67,7 +68,11 @@
 			},
 			gotao(id){
 				this.leavexscroll()
-				this.$router.push({name:'用户',query:{id:id}})
+				if(this.targetblank){
+					window.open(this.$router.resolve({name:'用户',query:{id:id}}).href, '_blank');
+				}else{
+					this.$router.push({name:'用户',query:{id:id}})
+				}
 			},
 			xscroll(e) {
 				e.preventDefault();

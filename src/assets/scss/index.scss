@@ -89,6 +89,7 @@
 	.waterfall-item{
 		overflow: hidden;
 		margin: 15px;
+		transition: none !important;
 	}
 	.the-img{
 		border-radius: 16px;
@@ -193,6 +194,7 @@
 		attachment: scroll !important;
 		repeat: no-repeat !important;
 		position: center center !important;
+		size: cover;
 	}
 }
 
@@ -208,9 +210,11 @@
 		transition: none !important;
 	}
 }
-.heightfull{
-	min-height: 100vh;
+/*
+html,body,#app,.wrapper,.main-content,.heightfull{
+	min-height: 100%;
 }
+*/
 .footer{
 	background-color: rgba($color: #f7fafc, $alpha: 0.5) !important;
 }
@@ -269,10 +273,8 @@
 		border-radius: 16px;
 		margin-bottom: 10px;
 		.one-img{
-			width: 101%;
-			top: -0.5%;
-			left: -0.5%;
-			height: 101%;
+			width: 100%;
+			height: 100%;
 			border-radius: 16px;
 			background-repeat: no-repeat;
 			background-size: cover;
@@ -589,11 +591,21 @@
 }
 
 .dropdownssssss {
-	height: 43px !important;
+	height: 100% !important;
 	border: 1px solid #ccc !important;
 	border-left: none !important;
 	border-top-left-radius: unset !important;
 	border-bottom-left-radius: unset !important;
 	box-shadow: none !important;
 	transform: none !important;
+}
+.text-align-end{
+	text-align: end;
+}
+
+.imgnums{
+	position: absolute;
+	z-index: 90;
+	top: 8px;
+	right: 10px;
 }

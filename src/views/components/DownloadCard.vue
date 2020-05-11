@@ -3,10 +3,10 @@
 	    <div class="bg-white border-0">
 	        <div class="row align-items-center">
 	            <div class="col">
-					<base-button type="secondary" v-if="image.type!='ugoira'" @click.native="AriadownloadAll()" :disabled="ariaonloading">Aria2下载√</base-button>
+					<base-button type="secondary" v-if="image.type!='ugoira'" @click.native="AriadownloadAll()" :disabled="ariaonloading">Aria2下载✓</base-button>
 	            </div>
 				<div class="col">
-					<base-button type="secondary" v-if="shownormal" @click.native="downloadAll()" :disabled="onloading">普通下载×</base-button>
+					<base-button type="secondary" v-if="shownormal" @click.native="downloadAll()" :disabled="onloading">普通下载✗</base-button>
 				</div>
 	        </div>
 	    </div>

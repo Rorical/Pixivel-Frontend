@@ -1,5 +1,5 @@
 <template>
-	<router-link :to="{name:'作品详情',query:{id:image.id}}" v-if="this.image.x_restrict==0||this.isR18" class="card the-img shadow--hover" v-bind:style="{ width: cardWidth + 'px', height: image.height * (cardWidth / image.width) + 'px' }">
+	<router-link :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:image.id}}" v-if="this.image.x_restrict==0||this.isR18" class="card the-img shadow--hover" v-bind:style="{ width: cardWidth + 'px', height: image.height * (cardWidth / image.width) + 'px' }">
 		<div class="spinner-box loading-imgcard" v-if="loading">
 		  <div class="circle-border">
 		    <div class="circle-core"></div>
@@ -7,6 +7,9 @@
 		</div>
 		<div class="imgerror" v-if="loadError">
 			<h1 class="errortext">Error</h1>
+		</div>
+		<div class="imgnums" v-if="image.page_count>1">
+			<badge type="default text-white"><i class="ni ni-ungroup"></i> {{image.page_count}}</badge>
 		</div>
 		<div ref="image" class="one-img"  v-lazy:background-image="source">
 		</div>
@@ -37,7 +40,8 @@
 			return{
 				loading: true,
 				loadError: false,
-				isR18: storage.get("r18")=="true"?true:false
+				isR18: storage.get("r18")=="true"?true:false,
+				targetblank: storage.get("targetblank") == "true"?true:false,
 			}
 		},
 		methods: {

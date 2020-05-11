@@ -45,7 +45,7 @@
         			</div>
         	</div>
         	<div class="row">
-        		<Waterfall ref="waterfall" imageType="medium" :images="rankimg" :cardWidth="cardWidth"/>
+        		<Waterfall ref="waterfall" imageType="medium" :images="rankimg" :key="waterfallIdentifier" :cardWidth="cardWidth"/>
         	</div>
         	<infinite-loading :identifier="waterfallIdentifier" @infinite="infiniteHandler" spinner="spiral" ref="infiniteLoading">
         	</infinite-loading>
@@ -71,7 +71,7 @@ Date.prototype.format = function(fmt)
 			if(new RegExp("("+ k +")").test(fmt))
 				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
 		return fmt;
-	} 
+	}
 import Waterfall from './components/Waterfall';
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
@@ -85,26 +85,26 @@ export default {
 	    },
 	    data() {
 	      return {
-			rankimg:[],
+			rankimg:this.$store.state.rank.rankimg,
 			waterfallIdentifier: Math.round(Math.random() * 100),
-			dates: new Date((new Date())-86400000).format("yyyy-MM-dd"),
+			dates: this.$store.state.rank.date,
 			cardWidth: 265,
-			page: 0,
+			page: this.$store.state.rank.page,
 			dateconfig:{
 				allowInput: true,
 				enable: [
 					{
 						from: "2007-09-10",
-						to: new Date((new Date())-86400000).format("yyyy-MM-dd")
+						to: new Date((new Date())-129600000).format("yyyy-MM-dd")
 					},
 				]
 			},
-			mode: "day",
-			modedesc: "日榜",
+			mode: this.$store.state.rank.mode,
+			modedesc: this.$store.state.rank.modedesc,
 	      };
 	    },
 		watch:{
-			"dates":"handleChanged",
+			"dates":"datesChanged",
 			"mode":"handleChanged"
 		},
 	    methods: {
@@ -124,7 +124,9 @@ export default {
 							return;
 						}
 						this.rankimg = this.rankimg.concat(response.data.illusts)
+						this.$store.commit("rank/setImages", this.rankimg)
 						this.page = this.page + 1;
+						this.$store.commit("rank/setPage", this.page)
 						$state.loaded();
 					}).catch(err => {
 						$state.complete();
@@ -134,15 +136,24 @@ export default {
 			modeselect(e){
 				this.mode = (e.target.name)
 				this.modedesc = (e.target.innerText)
+				this.$store.commit("rank/setMode", {
+					mode:this.mode,
+					modedesc:this.modedesc
+				})
 			},
 			handleChanged(s) {
 				this.refreshWaterfall();
 			},
+			datesChanged(s){
+				this.$store.commit("rank/setDate",s)
+				this.handleChanged()
+			},
 			refreshWaterfall() {
-				this.$refs.waterfall.$el.innerHTML = '';
+				this.rankimg = [];
 				this.$nextTick(() => {
 					this.page = 0;
-					this.rankimg = [];
+					
+					this.$redrawVueMasonry()
 					this.waterfallIdentifier = this.waterfallIdentifier + 1;
 				});
 			},
@@ -150,7 +161,7 @@ export default {
 		computed:{
 		},
 	    mounted() {
-			
+			window.scrollTo(0, this.$store.state.scroll.top)
 	    }
 	};
 </script>

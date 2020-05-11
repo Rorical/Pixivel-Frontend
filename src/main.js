@@ -18,6 +18,7 @@
 import "@/assets/scss/index.scss";
 import Vue from 'vue'
 import App from './App.vue'
+import store from './store'
 import router from './router'
 import VueAxios from 'vue-axios'
 import axios from 'axios';
@@ -27,10 +28,14 @@ import {VueMasonryPlugin} from 'vue-masonry'
 import ArgonDashboard from './plugins/argon-dashboard'
 import InfiniteLoading from 'vue-infinite-loading'
 import qs from "qs"
-import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
-import 'vue-directive-image-previewer/dist/assets/style.css'
-Vue.use(VueDirectiveImagePreviewer)
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
 
+Viewer.setDefaults({
+	Options: { 'inline': true, 'button': true, 'navbar': true, 'title': true, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source'}
+})
+Vue.use(Viewer)
+Vue.use(VueCookies)
 Vue.use(VueAxios, axios)
 
 // Set up lazyload
@@ -42,13 +47,14 @@ Vue.use(VueLazyload, {
 Vue.use(VueMasonryPlugin)
 Vue.use(InfiniteLoading, {
     slots: {
-        noMore: '没有更多图片了...'
+        noMore: '没有更多图片了...',
+		noResults: '空白的呢'
     },
 })
 
 Vue.use(ArgonDashboard)
-
 router.afterEach(function (to,from,next) {
+	
 	if(!window.adsbygoogle){
 		const oHead = document.getElementsByTagName('head').item(0);
 		var oScript= document.createElement("script");
@@ -64,7 +70,9 @@ router.afterEach(function (to,from,next) {
 		}
 	}
 })
+
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

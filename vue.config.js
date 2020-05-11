@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     open: process.platform === 'darwin',
     port: 80,
-	host: "pixivel.com",
+	//host: "pixivel.com",
     https: false,
     hotOnly: false,
     //proxy: {
