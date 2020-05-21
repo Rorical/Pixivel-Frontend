@@ -59,7 +59,7 @@
 							return;
 						}
 						this.pics = (response.data.illusts)
-						this.$store.commit("mainpage/rankpics", this.pics)
+						this.$store.commit("mainpage/setrankpics", this.pics)
 						$state.loaded();
 						$state.complete();
 					});

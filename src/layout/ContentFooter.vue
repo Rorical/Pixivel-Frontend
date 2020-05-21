@@ -16,7 +16,10 @@ export default {
   data() {
     return {
       year: new Date().getFullYear()
-    };
+    }
+  },
+  mounted(){
+  	(adsbygoogle = window.adsbygoogle || []).push({});
   }
 };
 </script>

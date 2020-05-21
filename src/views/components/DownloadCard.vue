@@ -246,7 +246,8 @@
 					canvas.height = image.height;
 					let context = canvas.getContext("2d");
 					context.drawImage(image, 0, 0, image.width, image.height);
-					let url = canvas.toDataURL("image/png");
+					console.log(name.split(".")[name.split(".").length-1])
+					let url = canvas.toDataURL("image/" + name.split(".")[name.split(".").length-1]?name.split(".")[name.split(".").length-1]:"png");
 					let a = document.createElement("a");
 					let event = new MouseEvent("click");
 					a.download = name || "photo";

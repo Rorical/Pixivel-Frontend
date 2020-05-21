@@ -53,23 +53,6 @@ Vue.use(InfiniteLoading, {
 })
 
 Vue.use(ArgonDashboard)
-router.afterEach(function (to,from,next) {
-	
-	if(!window.adsbygoogle){
-		const oHead = document.getElementsByTagName('head').item(0);
-		var oScript= document.createElement("script");
-		oScript.onload = function(){
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		}
-		oScript.type = "text/javascript";
-		oScript.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-		oHead.appendChild(oScript);
-	}else{
-		if(!window.adsbygoogle.loaded){
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		}
-	}
-})
 
 new Vue({
   router,
