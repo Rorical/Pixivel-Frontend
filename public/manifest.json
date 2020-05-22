@@ -1,15 +1,17 @@
 {
-  "name": "Pixivel",
-  "short_name": "Pixivel",
+  "name"              : "Pixivel",
+  "short_name"        : "Pel",
+  "description"       : "P站图片代理",
+  "start_url"         : "/",
+  "display"           : "standalone",
+  "orientation"       : "any",
+  "background_color"  : "#ffffff",
+  "theme_color"       : "#03acca",
   "icons": [
     {
-      "src": "./img/icons/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
+      "src"           : "/img/brand/favicon.png",
+      "sizes"         : "72x72",
+      "type"          : "image/png"
     }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  ]
 }

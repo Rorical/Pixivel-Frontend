@@ -47,6 +47,7 @@ export default {
 			if(this.rankimg.length>0){
 				$state.loaded();
 				$state.complete();
+				return;
 			}
 			this.axios
 				.get(CONFIG.API_HOST, {
