@@ -44,6 +44,10 @@ export default {
 	},
     methods: {
 		infiniteHandler($state) {
+			if(this.rankimg.length>0){
+				$state.loaded();
+				$state.complete();
+			}
 			this.axios
 				.get(CONFIG.API_HOST, {
 					params: {

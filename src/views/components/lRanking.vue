@@ -47,6 +47,10 @@
 				}
 			},
 			infiniteHandler($state) {
+				if(this.pics.length>0){
+					$state.loaded();
+					$state.complete();
+				}
 				this.axios
 					.get(CONFIG.API_HOST, {
 						params: {
