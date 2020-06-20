@@ -69,6 +69,22 @@ export default {
     },
     mounted() {
 		window.scrollTo(0, this.$store.state.scroll.top)
+		
+			var dialog = storage.get("dialog","")
+			this.axios
+				.get("getyou.txt")
+				.then((response, state) => {
+					if(response.data!=dialog){
+						this.$notify({
+							type: 'warning',
+							title: response.data,
+							timeout:null,
+							closeOnClick:false
+						})
+						storage.set("dialog",response.data)
+					}
+				});
+		
 	}
   };
 </script>

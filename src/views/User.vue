@@ -69,7 +69,7 @@
                             </div>
                         </div>
 						<div>
-							<infinite-loading @infinite="xScrollinit" spinner="spiral" v-if="xsimgs.length<1">
+							<infinite-loading @infinite="xScrollinit" spinner="spiral" v-if="xsimgs.length<1" :identifier="xsimgsIdentifier">
 								<span slot="no-more">
 									
 								</span>
@@ -126,6 +126,7 @@
 				cardWidth:265,
 				page: 0,
 				waterfallIdentifier: Math.round(Math.random() * 100),
+				xsimgsIdentifier: Math.round(Math.random() * 100)
 			}
 		},
 		created () {
@@ -170,6 +171,7 @@
 							return;
 						}
 						this.model = response.data
+						
 						this.$store.commit("user/setImage", {id:this.id,key:"model",value:this.model})
 					}).catch(err => {
 						console.error(err.response.status);
@@ -272,8 +274,7 @@
 					}
 					
 				}
-				
-				
+				this.refreshXscroll();
 				this.refreshWaterfall();
 				
 				
@@ -291,6 +292,15 @@
 					this.$redrawVueMasonry()
 					this.waterfallIdentifier = this.waterfallIdentifier + 1;
 				});
+			},
+			refreshXscroll(){
+				this.xsimgs = this.findById()["xsimgs"]
+				this.$nextTick(() => {
+					if(this.xsimgs.length==0){
+						this.xsimgsIdentifier = this.xsimgsIdentifier + 1;
+					}
+				});
+				
 			},
 			toid(e){
 				var id = e.target.value.replace(/[^0-9]/ig,"")

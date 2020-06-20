@@ -20,7 +20,7 @@
         					</div>
         					<div class="card-body">
         						<base-input addon-left-icon="ni ni-calendar-grid-58">
-        							<flat-picker
+        							<flat-picker												
         										 :config="dateconfig"
         										 class="form-control datepicker alternative"
         										 v-model="dates">

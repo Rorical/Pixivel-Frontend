@@ -15,7 +15,8 @@
 	    data() {
 			return {
 				aria2url : storage.get("aria2")?storage.get("aria2"):"http://localhost:16800/jsonrpc",
-				titleid: storage.get("titleid") == "true"?true:false
+				titleid: storage.get("titleid") == "true"?true:false,
+				isR18: storage.get("r18")=="true"?true:false
 			}
 		},
 		computed:{
@@ -41,7 +42,7 @@
 				})
 				for(var sb = 0; sb < this.images.length; sb++){
 					var image = this.images[sb]
-					if(image.type!="ugoira" && image.type!="manga"){
+					if(image.type!="ugoira" && image.type!="manga" && (image.x_restrict==0||this.isR18)){
 						var imgs = this.sourceimg(image)
 						var url
 						var uri = this.aria2url.split("@")

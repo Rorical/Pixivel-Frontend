@@ -52,10 +52,12 @@
 				e.stopPropagation();
 				if (!this.ScrollLock) {
 					this.ScrollLock = true
-					this.$refs.xscroll.scrollTo({
-						left: this.$refs.xscroll.scrollLeft + e.deltaY * 4,
-						behavior: "smooth"
-					});
+					if(this.$refs.xscroll){
+						this.$refs.xscroll.scrollTo({
+							left: this.$refs.xscroll.scrollLeft + e.deltaY * 4,
+							behavior: "smooth"
+						});
+					}
 					setTimeout(() => {
 						this.ScrollLock = false;
 					}, 170);
