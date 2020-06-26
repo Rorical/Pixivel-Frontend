@@ -30,15 +30,13 @@
 				onloading:false,
 				ariaonloading:false,
 				aria2url : storage.get("aria2")?storage.get("aria2"):"http://localhost:16800/jsonrpc",
-				titleid: storage.get("titleid") == "true"?true:false
+				titleid: storage.get("titleid") == "true"?true:false,
+				downloadSq:[]
 			}
 		},
 		computed:{
 			shownormal(){
 				var ua = navigator.userAgent.toLocaleLowerCase();
-				if(ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null){
-					return false
-				}
 				if(!this.IsPC()){
 					return false
 				}
@@ -246,17 +244,38 @@
 					canvas.height = image.height;
 					let context = canvas.getContext("2d");
 					context.drawImage(image, 0, 0, image.width, image.height);
-					console.log(name.split(".")[name.split(".").length-1])
-					let url = canvas.toDataURL("image/" + name.split(".")[name.split(".").length-1]?name.split(".")[name.split(".").length-1]:"png");
 					let a = document.createElement("a");
 					let event = new MouseEvent("click");
 					a.download = name || "photo";
 					a.href = url;
-					a.dispatchEvent(event);
-					that.$notify({
-						type: 'success',
-						title: name + '已保存！'
+					
+					that.downloadSq.push(()=>{
+						a.dispatchEvent(event);
+						that.$notify({
+							type: 'success',
+							title: name + '已保存！'
+						})
+						
+						setTimeout(()=>{
+							a.remove()
+						},1000)
 					})
+					
+					if(!that.interv){
+						that.interv = setInterval(()=>{
+							console.log(that.interv)
+							if(that.downloadSq.length>0){
+								var d = that.downloadSq.shift()
+								d()
+							}else{
+								clearInterval(that.interv)
+								that.interv = 0
+							}
+						},2000)
+					}
+					
+					
+					
 				};
 				image.src = url;
 				

@@ -1,6 +1,6 @@
 <template>
 		<div>
-		<base-header type="sb-info" class="pb-6 pb-8 pt-5 pt-md-8 background" style="height: calc(100vh + 6rem);">
+		<base-header type="sb-info" class="pb-6 pb-8 pt-5 pt-md-8 background" style="height: calc(100vh + 6rem);" :style="'background-image: url(' + backgroundImg + ') !important;'">
         </base-header>
 		<div class="container-fluid mt--7">
 			<div class="row" style="margin-bottom: 10px;">
@@ -8,7 +8,7 @@
 						<lRanking />
 					</div>
 				<div class="col-xl-4 md-5">
-					<lTags />
+					<lTags :backimage="backgroundImg" />
 				</div>
 			</div>
 			<div class="row">
@@ -37,7 +37,8 @@ export default {
       return {
 		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
-		cardWidth:260
+		cardWidth:260,
+		backgroundImg:""
       };
     },
 	watch:{
@@ -85,6 +86,14 @@ export default {
 					}
 				});
 		
+		this.axios
+			.get("http://www.dmoe.cc/random.php?return=json")
+			.then((response, state) => {
+				if (response.data.code!=200) {
+					return;
+				}
+				this.backgroundImg = response.data.imgurl
+			});
 	}
   };
 </script>
