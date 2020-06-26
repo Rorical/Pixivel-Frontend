@@ -63,6 +63,12 @@
 					        <i class="ni ni-ui-04"></i> 使用说明
 					    </a>
 					</li>
+					<li class="nav-item">
+					    <a class="nav-link"
+					       href="https://forum.boxpaper.club/" target="_blank">
+					        <i class="ni ni-chat-round"></i> 论坛
+					    </a>
+					</li>
                     <li class="nav-item">
                         <a class="nav-link"
                            href="https://www.boxpaper.club/" target="_blank">

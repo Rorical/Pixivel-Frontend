@@ -19,7 +19,8 @@
         <sidebar-item :link="{name: '排行榜', icon: 'ni ni-bullet-list-67 text-red', path: '/rank'}"/>
         <sidebar-item :link="{name: '用户', icon: 'ni ni-single-02 text-yellow', path: '/user'}"/>
         <sidebar-item :link="{name: '作品详情', icon: 'ni ni-pin-3 text-orange', path: '/detail'}"/>
-
+		
+		
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

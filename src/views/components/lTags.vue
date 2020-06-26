@@ -5,9 +5,9 @@
 	      <div class="col">
 	        <h3 class="mb-0">热门标签</h3>
 	      </div>
-		  <div class="col text-right">
+		  <!--<div class="col text-right">
 		    <base-button size="sm" type="primary" @click="downImg()">下载首页背景图</base-button>
-		  </div>
+		  </div>-->
 	    </div>
 	</div>
 	<div class="card-body">
@@ -29,10 +29,12 @@
 	export default {
 	    name: 'Rank.lTags',
 		props:{
+			/*
 			backimage:{
 				type:String,
 				default:""
 			}
+			*/
 		},
 	    data() {
 			return {
@@ -41,6 +43,7 @@
 			}
 		},
 	    methods: {
+			/*
 			downImg(){
 				if(this.backimage!=""){
 					var a = document.createElement('a')
@@ -53,6 +56,7 @@
 				}
 				
 			},
+			*/
 			infiniteHandler($state) {
 				if(this.tags.length>0){
 					$state.loaded();

@@ -8,7 +8,7 @@
 						<lRanking />
 					</div>
 				<div class="col-xl-4 md-5">
-					<lTags :backimage="backgroundImg" />
+					<lTags />
 				</div>
 			</div>
 			<div class="row">
@@ -38,7 +38,8 @@ export default {
 		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260,
-		backgroundImg:""
+		backgroundImg:"http://www.dmoe.cc/random.php",
+		isR18: storage.get("r18")=="true"?true:false
       };
     },
 	watch:{
@@ -61,7 +62,13 @@ export default {
 						$state.complete();
 						return;
 					}
+					
+					
 					this.rankimg = (response.data.illusts)
+					if(!this.isR18){
+						this.rankimg = this.rankimg.filter(i=>{return i.sanity_level < 5})
+					}
+					
 					this.$store.commit("mainpage/setrankimg", this.rankimg)
 					$state.loaded();
 					$state.complete();
@@ -85,15 +92,16 @@ export default {
 						storage.set("dialog",response.data)
 					}
 				});
-		
+		/*
 		this.axios
-			.get("http://www.dmoe.cc/random.php?return=json")
+			.get("https://www.rrll.cc/tuceng/ecy.php?return=json")
 			.then((response, state) => {
 				if (response.data.code!=200) {
 					return;
 				}
-				this.backgroundImg = response.data.imgurl
+				this.backgroundImg = response.data.acgurl
 			});
+			*/
 	}
   };
 </script>

@@ -244,6 +244,7 @@
 					canvas.height = image.height;
 					let context = canvas.getContext("2d");
 					context.drawImage(image, 0, 0, image.width, image.height);
+					let url = canvas.toDataURL("image/" + name.split(".")[name.split(".").length-1]?name.split(".")[name.split(".").length-1]:"png");
 					let a = document.createElement("a");
 					let event = new MouseEvent("click");
 					a.download = name || "photo";
@@ -263,7 +264,6 @@
 					
 					if(!that.interv){
 						that.interv = setInterval(()=>{
-							console.log(that.interv)
 							if(that.downloadSq.length>0){
 								var d = that.downloadSq.shift()
 								d()

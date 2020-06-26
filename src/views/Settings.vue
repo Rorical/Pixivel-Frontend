@@ -34,6 +34,12 @@
 										<base-switch v-model="datas.targetblank"></base-switch>
 									</div>
 		                        </div>
+								<div class="col-md">
+									<div class="form-group" v-if="isIncognito">
+										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> R-18</h4>
+										<base-switch v-model="datas.isR18"></base-switch>
+									</div>
+								</div>
 		                    </div>
 							<div class="row">
 								<div class="col">
@@ -60,6 +66,7 @@
 					titleid: storage.get("titleid") == "true"?true:false,
 					bodycolor: storage.get("bodycolor")?storage.get("bodycolor"):"#FFFFFF",
 					targetblank: storage.get("targetblank") == "true"?true:false,
+					isR18: storage.get("r18")=="true"?true:false
 				}
 			}
 		},
@@ -72,6 +79,19 @@
 					type: 'success',
 					title: '设置成功！'
 				})
+			}
+		},
+		computed:{
+			isIncognito(){
+				var fs = window.RequestFileSystem || window.webkitRequestFileSystem;
+				var inc = false
+				if (fs) {
+					fs(window.TEMPORARY,
+					100,
+					()=>{inc=false},
+					()=>{inc=true});
+				}
+				return inc
 			}
 		}
 	}
