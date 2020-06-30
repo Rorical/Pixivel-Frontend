@@ -25,8 +25,8 @@
 	    data() {
 			return {
 				ScrollLock: true,
-				targetblank: storage.get("targetblank") == "true"?true:false,
-				isR18: storage.get("r18")=="true"?true:false
+				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
+				isR18: storage.get("r18")==true?true:storage.set("r18",false)
 			}
 		},
 		methods:{

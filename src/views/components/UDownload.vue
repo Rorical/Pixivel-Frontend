@@ -14,9 +14,9 @@
 		},
 	    data() {
 			return {
-				aria2url : storage.get("aria2")?storage.get("aria2"):"http://localhost:16800/jsonrpc",
-				titleid: storage.get("titleid") == "true"?true:false,
-				isR18: storage.get("r18")=="true"?true:false
+				aria2url : storage.get("aria2")?storage.get("aria2"):storage.set("aria2","http://localhost:16800/jsonrpc"),
+				titleid: storage.get("titleid") == true?true:storage.set("titleid",false),
+				isR18: storage.get("r18")==true?true:storage.set("r18",false)
 			}
 		},
 		computed:{

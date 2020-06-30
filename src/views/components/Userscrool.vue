@@ -27,7 +27,7 @@
 	    data() {
 			return {
 				ScrollLock: true,
-				targetblank: storage.get("targetblank") == "true"?true:false,
+				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
 				Users:[]
 			}
 		},

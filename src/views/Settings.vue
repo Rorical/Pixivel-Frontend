@@ -35,6 +35,13 @@
 									</div>
 		                        </div>
 								<div class="col-md">
+									<div class="form-group">
+										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> 历史记录长度</h4>
+										<input placeholder="历史记录肯定有长度" v-model="datas.HisLen" class="form-control">
+									</div>
+									
+								</div>
+								<div class="col-md">
 									<div class="form-group" v-if="isIncognito">
 										<h4><a aria-hidden="true" href="javascript:void(0)" class="header-anchor">#</a> R-18</h4>
 										<base-switch v-model="datas.isR18"></base-switch>
@@ -62,18 +69,19 @@
 		data(){
 			return{
 				datas:{
-					aria2 : storage.get("aria2")?storage.get("aria2"):"http://localhost:16800/jsonrpc",
-					titleid: storage.get("titleid") == "true"?true:false,
-					bodycolor: storage.get("bodycolor")?storage.get("bodycolor"):"#FFFFFF",
-					targetblank: storage.get("targetblank") == "true"?true:false,
-					isR18: storage.get("r18")=="true"?true:false
+					aria2 : storage.get("aria2")?storage.get("aria2"):storage.set("aria2","http://localhost:16800/jsonrpc"),
+					titleid: storage.get("titleid") == true?true:storage.set("titleid",false),
+					bodycolor: storage.get("bodycolor")?storage.get("bodycolor"):storage.set("bodycolor","#FFFFFF"),
+					targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
+					isR18: storage.get("r18")==true?true:storage.set("r18",false),
+					HisLen: storage.get("HisLen")?storage.get("HisLen"):storage.set("HisLen","200")
 				}
 			}
 		},
 		methods:{
 			saveAll(){
 				for(var key in this.datas){
-					storage.set(key,this.datas[key].toString())
+					storage.set(key,this.datas[key])
 				}
 				this.$notify({
 					type: 'success',

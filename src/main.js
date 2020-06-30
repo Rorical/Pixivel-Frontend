@@ -37,7 +37,6 @@ Viewer.setDefaults({
 Vue.use(Viewer)
 Vue.use(VueCookies)
 Vue.use(VueAxios, axios)
-
 // Set up lazyload
 Vue.use(VueLazyload, {
     // set observer to true

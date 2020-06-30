@@ -39,7 +39,7 @@ export default {
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260,
 		backgroundImg:"http://www.dmoe.cc/random.php",
-		isR18: storage.get("r18")=="true"?true:false
+		isR18: storage.get("r18")==true?true:storage.set("r18",false)
       };
     },
 	watch:{

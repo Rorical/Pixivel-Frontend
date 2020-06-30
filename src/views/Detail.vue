@@ -115,15 +115,17 @@
 				waterfallIdentifier: Math.round(Math.random() * 100),
 				relateimgs:[],
 				cardWidth: 270,
-				targetblank: storage.get("targetblank") == "true"?true:false,
-				isR18: storage.get("r18")=="true"?true:false
+				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
+				isR18: storage.get("r18")==true?true:storage.set("r18",false),
+				HisLen: parseInt(storage.get("HisLen")?storage.get("HisLen"):storage.set("HisLen","200"))
 			}
 		},
 		watch: {
 			"$route.query.id": {
 				handler:"handleIdChanged",
 				immediate: false,
-			}
+			},
+			"image":"Imghispush"
 		},
 		created () {
 			this.image = this.findById()["image"]
@@ -315,6 +317,31 @@
 			},
 			findById(){
 				return this.$store.getters["detail/findById"](this.id)
+			},
+			placeInHistory(obj){
+				var his = storage.get("PicHis")?storage.get("PicHis"):storage.set("PicHis",[])
+				
+				
+				for(var i = 0;i < his.length;i++){
+					if(his[i].id==obj.id){
+						
+						his.splice(i,1)
+						break
+					}
+				}
+				
+				his.push(obj)
+				
+				if(his.length>this.HisLen){
+					his.splice(0,his.length-this.HisLen)
+				}
+				storage.set("PicHis",his)
+			},
+			Imghispush(obj){
+				if(obj.id){
+					this.placeInHistory(obj)
+				}
+				
 			}
 		},
 		computed:{

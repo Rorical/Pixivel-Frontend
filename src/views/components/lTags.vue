@@ -38,7 +38,7 @@
 		},
 	    data() {
 			return {
-				targetblank: storage.get("targetblank") == "true"?true:false,
+				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
 				tags:this.$store.state.mainpage.tags
 			}
 		},

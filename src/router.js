@@ -46,6 +46,11 @@ export default new Router({
 		  path: '/setting',
 		  name: '设置',
 		  component: () => import(/* webpackChunkName: "demo" */ './views/Settings.vue')
+		},
+		{
+		  path: '/account',
+		  name: '账号',
+		  component: () => import(/* webpackChunkName: "demo" */ './views/Account.vue')
 		}
       ]
     }

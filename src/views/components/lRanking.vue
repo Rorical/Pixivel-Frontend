@@ -34,7 +34,7 @@
 		},
 	    data() {
 			return {
-				targetblank: storage.get("targetblank") == "true"?true:false,
+				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
 				pics:this.$store.state.mainpage.rankpics
 			}
 		},
