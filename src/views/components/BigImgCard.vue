@@ -37,7 +37,12 @@
 		},
 		methods: {
 			replaceImg(url){
-				return url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
+				url = url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
+				var ua = navigator.userAgent.toLowerCase()
+				if(ua.match(/version\/([\d.]+).*safari/i)){
+					url = url.replace("_webp","")
+				}
+				return url
 			}
 		},
 		computed:{
