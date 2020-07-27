@@ -153,7 +153,7 @@ export default {
 				this.$nextTick(() => {
 					this.page = 0;
 					
-					this.$redrawVueMasonry()
+					//this.$redrawVueMasonry()
 					this.waterfallIdentifier = this.waterfallIdentifier + 1;
 				});
 			},

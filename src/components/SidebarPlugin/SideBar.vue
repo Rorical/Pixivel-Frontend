@@ -90,7 +90,7 @@
 						</router-link>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://blog.boxpaper.club/pixivel.aspx" target="_blank">
+						<a class="nav-link" href="https://forum.boxpaper.club/d/13" target="_blank">
 							<i class="ni ni-ui-04"></i> 使用说明
 						</a>
 					</li>

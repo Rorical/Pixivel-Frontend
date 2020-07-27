@@ -62,7 +62,7 @@
 						</router-link>
 						<div style="margin-top: 10px;">
 							<xScroll :pics="xsimgs" ref="xscroll"/>
-							<infinite-loading @infinite="xScrollinit" spinner="spiral">
+							<infinite-loading @infinite="xScrollinit" spinner="spiral" :identifier="xscrollIdentifier">
 								<span slot="no-more">
 									
 								</span>
@@ -108,13 +108,14 @@
 			return{
 				image:{},
 				imgsIdentifier: Math.round(Math.random() * 100),
+				xscrollIdentifier: Math.round(Math.random() * 100),
 				id: this.$route.query.id,
 				xsimgs: [],
 				isFold: true,
 				relatedpage:0,
 				waterfallIdentifier: Math.round(Math.random() * 100),
 				relateimgs:[],
-				cardWidth: 270,
+				cardWidth: document.body.clientWidth<513?165:270,
 				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
 				isR18: storage.get("r18")==true?true:storage.set("r18",false),
 				HisLen: parseInt(storage.get("HisLen")?storage.get("HisLen"):storage.set("HisLen","200"))
@@ -196,6 +197,7 @@
 					$state.complete();
 					return;
 				}
+
 				if(this.xsimgs.length>0){
 					$state.loaded();
 					$state.complete();
@@ -277,12 +279,13 @@
 					this.xsimgs = this.findById()["xsimgs"];
 				}else{
 					this.xsimgs = [];
+					this.xscrollIdentifier += 1
 				}
 				if(this.findById()["relateimgs"].length>0){
 					this.relateimgs = this.findById()["relateimgs"];
 					this.$nextTick(() => {
 						this.relatedpage = this.findById()["relatedpage"];
-						this.$redrawVueMasonry()
+						//this.$redrawVueMasonry()
 						this.waterfallIdentifier = this.waterfallIdentifier + 1;
 						this.$nextTick(() => {
 							window.scrollTo(0, scroll)
@@ -291,7 +294,7 @@
 				}else{
 					this.relateimgs = [];
 					this.$nextTick(() => {
-						this.$redrawVueMasonry()
+						//this.$redrawVueMasonry()
 						this.relatedpage = 0;
 						this.waterfallIdentifier = this.waterfallIdentifier + 1;
 						this.$nextTick(() => {

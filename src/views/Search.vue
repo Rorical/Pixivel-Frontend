@@ -129,7 +129,7 @@
 					
 					this.$nextTick(() => {
 						this.page = this.findById()["page"];
-						this.$redrawVueMasonry()
+						//this.$redrawVueMasonry()
 						this.waterfallIdentifier = this.waterfallIdentifier + 1;
 						this.$nextTick(()=>{
 							window.scrollTo(0,scrollDis)

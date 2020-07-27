@@ -186,6 +186,7 @@
 						params: {
 							type: "member_illust",
 							id: this.id,
+							page: 0
 							}
 						})
 					.then((response, state) => {
@@ -265,7 +266,6 @@
 				return url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
 			},
 			handleIdChanged(s) {
-				console.log(s)
 				if(this.id != this.$route.query.id){
 					this.id = this.$route.query.id;
 					this.model = this.findById()["model"]
@@ -289,7 +289,7 @@
 					this.page = this.findById()["bpage"];
 				}
 				this.$nextTick(() => {
-					this.$redrawVueMasonry()
+					//this.$redrawVueMasonry()
 					this.waterfallIdentifier = this.waterfallIdentifier + 1;
 				});
 			},

@@ -21,11 +21,29 @@
 				default:"large"
 			}
 		},
+		watch:{
+			"images":"waterChanged"
+		},
 		components: {
 			ImageCard
 		},
 		methods: {
-			
+			waterChanged(){
+				this.$redrawVueMasonry()
+				this.commitDetail()
+			},
+			commitDetail(){
+				for(var i = 0; i < this.images.length; i ++){
+					var image = this.images[i]
+					if(!this.$store.getters["detail/findById"](image.id)["image"].id){
+						this.$store.commit("detail/setImage", {id:image.id,key:"image",value:image})
+					}
+					
+				}
+			}
+		},
+		created(){
+			this.commitDetail()
 		}
 	}
 </script>

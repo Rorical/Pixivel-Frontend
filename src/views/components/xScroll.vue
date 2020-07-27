@@ -1,6 +1,6 @@
 <template>
 	<nav ref="xscroll" class="x-list scrollbar" @mouseenter="enterxscroll" @mouseleave="leavexscroll" >
-		<a @click="gotao(pic.id)" v-if="pic.x_restrict==0||isR18" href="javascript:void(0)" :title="pic.title" :key="pic.id" class="card border-0 one" v-for="pic in pics">
+		<router-link @click.native="leavexscroll()" :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:pic.id}}" v-if="pic.x_restrict==0||isR18" :title="pic.title" :key="pic.id" class="card border-0 one" v-for="pic in pics">
 			<div class="one-img" :alt="pic.title" v-lazy:background-image="replaceImg(pic.image_urls.square_medium)"></div>
 			<div class="carousel-indicators">
 				<h4 class="text-white">{{pic.title}}</h4>
@@ -8,7 +8,7 @@
 			<div class="imgnums" v-if="pic.page_count>1">
 				<badge type="default text-white"><i class="ni ni-ungroup"></i> {{pic.page_count}}</badge>
 			</div>
-		</a>
+		</router-link>
 	</nav>
 </template>
 
@@ -22,6 +22,9 @@
 				type:Array
 			}
 		},
+		watch:{
+			"pics":"commitDetail"
+		},
 	    data() {
 			return {
 				ScrollLock: true,
@@ -30,6 +33,15 @@
 			}
 		},
 		methods:{
+			commitDetail(){
+				for(var i = 0; i < this.pics.length; i ++){
+					var image = this.pics[i]
+					if(!this.$store.getters["detail/findById"](image.id)["image"].id){
+						this.$store.commit("detail/setImage", {id:image.id,key:"image",value:image})
+					}
+					
+				}
+			},
 			replaceImg(url){
 				url = url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
 				var ua = navigator.userAgent.toLowerCase()
@@ -43,14 +55,6 @@
 			},
 			leavexscroll() {
 				window.removeEventListener('mousewheel', this.xscroll, { passive: false });
-			},
-			gotao(id){
-				this.leavexscroll()
-				if(this.targetblank){
-					window.open(this.$router.resolve({name:'作品详情',query:{id:id}}).href, '_blank');
-				}else{
-					this.$router.push({name:'作品详情',query:{id:id}})
-				}
 			},
 			xscroll(e) {
 				e.preventDefault();
@@ -74,6 +78,9 @@
 		},
 		destroyed(){
 			this.leavexscroll()
+		},
+		created(){
+			this.commitDetail()
 		}
 	}
 	
