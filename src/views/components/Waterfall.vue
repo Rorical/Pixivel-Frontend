@@ -29,8 +29,11 @@
 		},
 		methods: {
 			waterChanged(){
-				this.$redrawVueMasonry()
+				
 				this.commitDetail()
+				this.$nextTick(() => {
+					this.$redrawVueMasonry()
+				})
 			},
 			commitDetail(){
 				for(var i = 0; i < this.images.length; i ++){

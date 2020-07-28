@@ -26,10 +26,10 @@
 		},
 		computed:{
 			cliwidth(){
-				return ((document.body.clientWidth<513?this.image.height<this.image.width:this.image.height>this.image.width) ? (this.image.width / this.image.height) *  this.Hpercent + 'vmin' : this.Hpercent + 'vmin')
+				return document.body.clientWidth<513?this.Hpercent + 'vmin':(this.image.height>this.image.width ? (this.image.width / this.image.height) *  this.Hpercent + 'vmin' : this.Hpercent + 'vmin')
 			},
 			cliheight(){
-				return ((document.body.clientWidth<513?this.image.width<this.image.height:this.image.width>this.image.height) ? (this.image.height / this.image.width) *  this.Hpercent + 'vmin' : this.Hpercent + 'vmin')
+				return document.body.clientWidth<513?(this.image.height / this.image.width) *  this.Hpercent + 'vmin':(this.image.width>this.image.height ? (this.image.height / this.image.width) *  this.Hpercent + 'vmin' : this.Hpercent + 'vmin')
 			},
 			sourceimg(){
 				if(this.image.meta_pages && this.image.meta_pages.length==0){

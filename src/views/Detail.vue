@@ -115,7 +115,7 @@
 				relatedpage:0,
 				waterfallIdentifier: Math.round(Math.random() * 100),
 				relateimgs:[],
-				cardWidth: document.body.clientWidth<513?165:270,
+				cardWidth: 270,
 				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
 				isR18: storage.get("r18")==true?true:storage.set("r18",false),
 				HisLen: parseInt(storage.get("HisLen")?storage.get("HisLen"):storage.set("HisLen","200"))
