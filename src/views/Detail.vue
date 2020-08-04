@@ -208,6 +208,7 @@
 						params: {
 							type: "member_illust",
 							id: this.image.user.id,
+							"page": 0
 							}
 						})
 					.then((response, state) => {
