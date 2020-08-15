@@ -10,7 +10,7 @@ module.exports = {
     hotOnly: false,
     //proxy: {
      // '/api': {
-     //  target: 'http://wq.boxpaper.club',
+     //  target: 'http://',
      //   pathRewrite: {'^/api' : ''}
      //}
     //},

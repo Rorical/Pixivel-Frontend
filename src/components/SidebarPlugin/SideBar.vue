@@ -90,22 +90,17 @@
 						</router-link>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://forum.boxpaper.club/d/13" target="_blank">
+						<a class="nav-link" href="https://forum.pixivel.moe/d/13" target="_blank">
 							<i class="ni ni-ui-04"></i> 使用说明
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://forum.boxpaper.club/" target="_blank">
+						<a class="nav-link" href="https://forum.pixivel.moe/" target="_blank">
 							<i class="ni ni-chat-round"></i> 论坛
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://www.boxpaper.club/" target="_blank">
-							<i class="ni ni-spaceship"></i> 纸盒子
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="https://blog.boxpaper.club/" target="_blank">
+						<a class="nav-link" href="https://rorical.blue/" target="_blank">
 							<i class="ni ni-palette"></i> Rorical的博客
 						</a>
 					</li>
