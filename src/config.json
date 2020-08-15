@@ -2,5 +2,5 @@
     "SMALL_IMAGE_PROXY_HOST": "https://i.pixiv.cat/",
 	"IMAGE_PROXY_HOST":"https://i.pixiv.cat/",
 	"DOWNLOAD_IMAGE_PROXY_HOST":"https://pximg.boxpaper.workers.dev/",
-	"API_HOST":"https://api.pixivel.moe//pixiv"
+	"API_HOST":"https://api.pixivel.moe/pixiv"
 }
