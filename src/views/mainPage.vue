@@ -38,8 +38,7 @@ export default {
 		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260,
-		backgroundImg:"http://www.dmoe.cc/random.php",
-		isR18: storage.get("r18")==true?true:storage.set("r18",false)
+		backgroundImg:"http://www.dmoe.cc/random.php"
       };
     },
 	watch:{
@@ -62,13 +61,7 @@ export default {
 						$state.complete();
 						return;
 					}
-					
-					
 					this.rankimg = (response.data.illusts)
-					if(!this.isR18){
-						this.rankimg = this.rankimg.filter(i=>{return i.sanity_level < 5})
-					}
-					
 					this.$store.commit("mainpage/setrankimg", this.rankimg)
 					$state.loaded();
 					$state.complete();

@@ -1,6 +1,6 @@
 <template>
 	<nav ref="xscroll" class="x-list scrollbar" @mouseenter="enterxscroll" @mouseleave="leavexscroll" >
-		<router-link @click.native="leavexscroll()" :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:pic.id}}" v-if="pic.x_restrict==0||isR18" :title="pic.title" :key="pic.id" class="card border-0 one" v-for="pic in pics">
+		<router-link @click.native="leavexscroll()" :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:pic.id}}" v-if="pic.sanity_level < 5&&pic.x_restrict==0||isR18" :title="pic.title" :key="pic.id" class="card border-0 one" v-for="pic in pics">
 			<div class="one-img" :alt="pic.title" v-lazy:background-image="replaceImg(pic.image_urls.square_medium)"></div>
 			<div class="carousel-indicators">
 				<h4 class="text-white">{{pic.title}}</h4>
