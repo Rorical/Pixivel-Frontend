@@ -30,6 +30,10 @@ import InfiniteLoading from 'vue-infinite-loading'
 import qs from "qs"
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
+import * as Sentry from '@sentry/browser';
+import { Vue as VueIntegration } from '@sentry/integrations';
+
+
 
 Viewer.setDefaults({
 	Options: { 'inline': true, 'button': true, 'navbar': true, 'title': true, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source'}
@@ -58,3 +62,7 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+Sentry.init({
+  dsn: 'https://6a64b3b1cb7d422287485c60b261bd19@o434077.ingest.sentry.io/5390459',
+  integrations: [new VueIntegration({Vue, attachProps: true})],
+});
