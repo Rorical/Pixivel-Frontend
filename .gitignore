@@ -3,3 +3,5 @@
 node_modules/
 dist/
 pwp-deploy.json
+yarn.lock
+yarn-error.log

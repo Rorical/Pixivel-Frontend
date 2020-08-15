@@ -38,7 +38,7 @@ export default {
 		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260,
-		backgroundImg:"http://www.dmoe.cc/random.php"
+		backgroundImg:CONFIG.RAND_IMG
       };
     },
 	watch:{
