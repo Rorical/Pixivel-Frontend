@@ -185,7 +185,7 @@
 					this.$nextTick(() => {
 						this.image = {}
 						this.imgsIdentifier = this.imgsIdentifier + 1;
-					});
+					})
 				}
 				
 			},
@@ -227,7 +227,8 @@
 								}
 								break;
 							}
-							if(this.xsimgs[i].x_restrict==0||this.isR18){
+							
+							if(this.xsimgs[i].sanity_level < 5&&this.xsimgs[i].x_restrict==0||this.isR18){
 								a ++
 							}
 						}
