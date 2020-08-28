@@ -108,7 +108,7 @@
 						$state.loaded();
 					}).catch(err => {
 						$state.complete();
-						console.error(err.response.status);
+						console.error(err);
 					});
 			},
 			handleScroll() {

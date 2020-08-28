@@ -54,7 +54,7 @@
 						$state.complete();
 					}).catch(err => {
 						$state.complete();
-						console.error(err.response.status);
+						console.error(err);
 					});
 			},
 			replaceImg(url){

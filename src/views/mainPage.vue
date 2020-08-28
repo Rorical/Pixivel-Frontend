@@ -1,6 +1,6 @@
 <template>
 		<div>
-		<base-header type="sb-info" class="pb-6 pb-8 pt-5 pt-md-8 background" style="height: calc(100vh + 6rem);" :style="'background-image: url(' + backgroundImg + ') !important;'">
+		<base-header type="sb-info" class="pb-6 pb-8 pt-5 pt-md-8 background" style="height: calc(100vh + 6rem);" :style="{'background-image':`url(${backgroundImg})`}">
         </base-header>
 		<div class="container-fluid mt--7">
 			<div class="row" style="margin-bottom: 10px;">
@@ -38,10 +38,14 @@ export default {
 		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260,
-		backgroundImg:CONFIG.RAND_IMG
       };
     },
 	watch:{
+	},
+	computed:{
+		backgroundImg(){
+			return CONFIG.RAND_IMG
+		}
 	},
     methods: {
 		infiniteHandler($state) {

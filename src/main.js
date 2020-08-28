@@ -54,7 +54,8 @@ Vue.use(InfiniteLoading, {
 		noResults: '空白的呢'
     },
 })
-
+import routerLinkA from './views/components/routerLinkA.vue'
+Vue.component("router-link-a",routerLinkA)
 Vue.use(ArgonDashboard)
 
 new Vue({
@@ -62,7 +63,7 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-Sentry.init({
-  dsn: 'https://6a64b3b1cb7d422287485c60b261bd19@o434077.ingest.sentry.io/5390459',
-  integrations: [new VueIntegration({Vue, attachProps: true})],
-});
+//Sentry.init({
+//  dsn: 'https://6a64b3b1cb7d422287485c60b261bd19@o434077.ingest.sentry.io/5390459',
+//  integrations: [new VueIntegration({Vue, attachProps: true})],
+//});

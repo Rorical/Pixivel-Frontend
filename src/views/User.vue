@@ -174,7 +174,7 @@
 						
 						this.$store.commit("user/setImage", {id:this.id,key:"model",value:this.model})
 					}).catch(err => {
-						console.error(err.response.status);
+						console.error(err);
 					});
 			},
 			handleScroll() {
