@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container-lg">
 		
 		<div class="row align-items-center">
 		  <div class="col">
