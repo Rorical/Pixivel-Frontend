@@ -1,9 +1,10 @@
 <template>
-	<router-link :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:image.id}}" v-if="image.sanity_level < 5&&image.x_restrict==0||this.isR18" class="card the-img shadow--hover" v-bind:style="{ width: cardWidth + 'px', height: image.height * (cardWidth / image.width) + 'px' }">
+	<router-link-a :target="targetblank?'_blank':''" :handle="()=>{commitDetail(image);}" :to="{name:'作品详情',query:{id:image.id}}" v-if="image.sanity_level < 5&&image.x_restrict==0||this.isR18"
+	 class="card the-img shadow--hover" v-bind:style="{ width: cardWidth + 'px', height: image.height * (cardWidth / image.width) + 'px' }">
 		<div class="spinner-box loading-imgcard" v-if="loading">
-		  <div class="circle-border">
-		    <div class="circle-core"></div>
-		  </div>  
+			<div class="circle-border">
+				<div class="circle-core"></div>
+			</div>
 		</div>
 		<div class="imgerror" v-if="loadError">
 			<h1 class="errortext">Error</h1>
@@ -11,12 +12,12 @@
 		<div class="imgnums" v-if="image.page_count>1">
 			<badge type="default text-white"><i class="ni ni-ungroup"></i> {{image.page_count}}</badge>
 		</div>
-		<div ref="image" class="one-img"  v-lazy:background-image="source">
+		<div ref="image" class="one-img" v-lazy:background-image="source">
 		</div>
 		<div class="carousel-indicators img-title" v-if="!loadError">
 			<h2 class="text-white">{{image.title}}</h2>
 		</div>
-	</router-link>
+	</router-link-a>
 </template>
 
 <script>
@@ -36,27 +37,43 @@
 				type: String
 			},
 		},
-		data(){
-			return{
+		data() {
+			return {
 				loading: true,
 				loadError: false,
-				isR18: storage.get("r18")==true?true:storage.set("r18",false),
-				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
+				isR18: storage.get("r18") == true ? true : storage.set("r18", false),
+				targetblank: storage.get("targetblank") == true ? true : storage.set("targetblank", false),
 			}
 		},
 		methods: {
-			replaceImg(url){
-				return url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
-			}
+			replaceImg(url) {
+				return url.replace("https://i.pximg.net/", CONFIG.SMALL_IMAGE_PROXY_HOST)
+			},
+			commitDetail(image) {
+				if (!this.$store.getters["detail/findById"](image.id)["image"].id) {
+					this.$store.commit("detail/setImage", {
+						id: image.id,
+						key: "image",
+						value: image
+					})
+				}
+				return false
+			},
 		},
-		computed:{
-			source(){
-				this.$Lazyload.$on('loaded', ({el, src}) => {
+		computed: {
+			source() {
+				this.$Lazyload.$on('loaded', ({
+					el,
+					src
+				}) => {
 					if (src == this.source) {
 						this.loading = false;
 					}
 				});
-				this.$Lazyload.$on('error', ({el, src}) => {
+				this.$Lazyload.$on('error', ({
+					el,
+					src
+				}) => {
 					if (src == this.source) {
 						this.loading = false;
 						this.loadError = true;
@@ -65,8 +82,7 @@
 				return this.replaceImg(this.image["image_urls"][this.imageType])
 			}
 		},
-		mounted(){
-		}
+		mounted() {}
 	}
 </script>
 
