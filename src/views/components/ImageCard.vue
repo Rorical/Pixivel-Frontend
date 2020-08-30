@@ -1,5 +1,5 @@
 <template>
-	<router-link-a :target="targetblank?'_blank':''" :handle="()=>{commitDetail(image);}" :to="{name:'作品详情',query:{id:image.id}}" v-if="image.sanity_level < 5&&image.x_restrict==0||this.isR18"
+	<router-link-a :target="targetblank?'_blank':''" :handle="()=>{commitDetail(image);}" :to="{name:'作品详情',query:{id:image.id}}" v-if="image.sanity_level < 5&&image.x_restrict==0||isR18"
 	 class="card the-img shadow--hover" v-bind:style="{ width: cardWidth + 'px', height: image.height * (cardWidth / image.width) + 'px' }">
 		<div class="spinner-box loading-imgcard" v-if="loading">
 			<div class="circle-border">

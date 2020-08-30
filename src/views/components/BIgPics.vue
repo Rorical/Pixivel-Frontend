@@ -8,6 +8,7 @@
 
 <script>
 	import BigImgCard from './BigImgCard';
+	import storage from 'good-storage'
 	export default {
 		name: 'Image.BigPics',
 		props: {
@@ -19,7 +20,8 @@
 			return {
 				isShowMore: false,
 				Hpercent: 95,
-				cliWid: document.body.clientWidth
+				cliWid: document.body.clientWidth,
+				isR18: storage.get("r18") == true ? true : storage.set("r18", false)
 			}
 		},
 		components: {

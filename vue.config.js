@@ -28,8 +28,14 @@ module.exports = {
     name: 'Pixivel',
     themeColor: '#11cdef',
     msTileColor: '#0fa9e1',
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: '#0d80d8'
+    manifestOptions: {
+      start_url: '.',
+      background_color: '#11cdef',
+    },
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: 'src/service-worker.js',
+    }
   },
   css: {
     // Enable CSS source maps.

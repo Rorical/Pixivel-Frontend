@@ -3,7 +3,7 @@
 		<div class="bg-white border-0">
 			<div class="row align-items-center">
 				<div class="col">
-					<base-button type="secondary" v-if="image.type!='ugoira'" @click.native="AriadownloadAll()" :disabled="ariaonloading">Motrix下载✓</base-button>
+					<base-button type="secondary" @click.native="AriadownloadAll()" :disabled="ariaonloading">Motrix下载✓</base-button>
 				</div>
 				<div class="col">
 					<base-button type="secondary" @click.native="downloadAll()" :disabled="onloading">普通下载✗</base-button>
@@ -28,15 +28,22 @@
 		data() {
 			return {
 				onloading: false,
-				ariaonloading: false,
+				ariaonloading: this.image.type=='ugoira',
 				aria2url: storage.get("aria2") ? storage.get("aria2") : storage.set("aria2", "http://localhost:16800/jsonrpc"),
 				titleid: storage.get("titleid") == true ? true : storage.set("titleid", false),
 				downloadSq: []
 			}
 		},
+		watch:{
+			"image":"imageChange"
+		},
 		computed: {
 		},
 		methods: {
+			imageChange(){
+				this.onloading = false
+				this.ariaonloading = this.image.type=='ugoira'
+			},
 			thetitle(url, i) {
 				return this.titleid ? this.image.title + "." + i + "." + url.split(".")[url.split(".").length - 1] : url.split("/")[
 					url.split("/").length - 1].split("?")[0]

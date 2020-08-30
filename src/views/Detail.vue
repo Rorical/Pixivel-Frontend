@@ -6,9 +6,25 @@
 		<div class="container-fluid mt--8">
 			<div class="row">
 				<div class="col-xl-8">
+					<template v-if="image.sanity_level < 5&&image.x_restrict==0||isR18">
+						<BigPics v-if="image.type!='ugoira'" ref="images" :image="image" :key="imgsIdentifier" />
+						<Ugoira v-else ref="images" :image="image" :key="imgsIdentifier" />
+					</template>
+					<template v-else-if="image.id">
+						<card shadow type="white show-more bigpics">
+							<div class="bg-white border-0">
+								<div class="row align-items-center">
+									<div class="col">
+										您正在试图访问一个R18的图片，这在此处是被禁止的
+										球球您去官方站看叭
+										<a :href="'https://www.pixiv.net/artworks/'+image.id" target="_blank">跳转</a>
+									</div>
+								</div>
+							</div>
+						</card>
+					</template>
 
-					<BigPics v-if="image.type!='ugoira'" ref="images" :image="image" :key="imgsIdentifier" />
-					<Ugoira v-if="image.type=='ugoira'" ref="images" :image="image" :key="imgsIdentifier" />
+
 					<div class="card" v-if="!image.id">
 						<div class="container">
 							<infinite-loading :identifier="imgsIdentifier" @infinite="infiniteHandler" spinner="spiral" ref="infiniteLoading">
