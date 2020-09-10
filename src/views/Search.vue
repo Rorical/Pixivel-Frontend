@@ -11,7 +11,6 @@
 								<div class="col"><h3 style="width: fit-content;">搜索"{{keyword}}"</h3></div>
 								<div class="col">
 									<nav class="nav justify-content-end">
-										<base-checkbox v-model="checkboxes.date_asc" class="mg">升序排列</base-checkbox>
 										<base-checkbox v-model="checkboxes.exact_match_for_tags" class="mg">精准搜索</base-checkbox>
 										<base-checkbox v-model="checkboxes.searchforUser" class="mg">搜索用户</base-checkbox>
 									</nav>
@@ -57,7 +56,6 @@
 				cardWidth:265,
 				checkboxes:{
 					exact_match_for_tags: false,
-					date_asc: false,
 					searchforUser:false
 				}
 			}
@@ -66,7 +64,6 @@
 			this.images = this.findById()["images"]
 			this.page = this.findById()["page"]
 			this.checkboxes.exact_match_for_tags = (this.$route.params.tag == "true" ? true:this.findById()["checkboxes/exact_match_for_tags"])
-			this.checkboxes.date_asc = this.findById()["checkboxes/date_asc"]
 		},
 		watch: {
 			"$route.query.keyword": "handleKeywordChanged",
@@ -92,7 +89,6 @@
 							word: this.keyword,
 							page: this.page,
 							mode: this.checkboxes.exact_match_for_tags ? "exact_match_for_tags" : "partial_match_for_tags",
-							order: this.checkboxes.date_asc ? "date_asc" : "date_desc"
 							}
 						})
 					.then((response, state) => {
@@ -118,12 +114,11 @@
 					this.keyword = this.$route.query.keyword;
 					this.refreshWaterfall();
 					this.$store.commit("search/setSearch", {id:this.keyword,key:"checkboxes/exact_match_for_tags",value:this.checkboxes.exact_match_for_tags})
-					this.$store.commit("search/setSearch", {id:this.keyword,key:"checkboxes/date_asc",value:this.checkboxes.date_asc})
 			},
 			refreshWaterfall() {
 				
 				
-				if(this.findById()["images"] && this.findById()["images"].length>0 && this.checkboxes.exact_match_for_tags == this.findById()["checkboxes/exact_match_for_tags"] && this.checkboxes.date_asc == this.findById()["checkboxes/date_asc"]){
+				if(this.findById()["images"] && this.findById()["images"].length>0 && this.checkboxes.exact_match_for_tags == this.findById()["checkboxes/exact_match_for_tags"]){
 					var scrollDis = this.$store.state.search.scroll[this.keyword]
 					this.images = this.findById()["images"];
 					
