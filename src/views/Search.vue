@@ -64,6 +64,7 @@
 			this.images = this.findById()["images"]
 			this.page = this.findById()["page"]
 			this.checkboxes.exact_match_for_tags = (this.$route.params.tag == "true" ? true:this.findById()["checkboxes/exact_match_for_tags"])
+			this.changeTitle(this.keyword)
 		},
 		watch: {
 			"$route.query.keyword": "handleKeywordChanged",
@@ -71,9 +72,12 @@
 				handler:"handleKeywordChanged",
 				immediate: false,
 				deep: true
-			}
+			},
 		},
 		methods: {
+			changeTitle(title){
+				document.title = `${title} - Pixivel`
+			},
 			findById(){
 				return this.$store.getters["search/findById"](this.keyword)
 			},
@@ -112,6 +116,7 @@
 			},
 			handleKeywordChanged(s) {
 					this.keyword = this.$route.query.keyword;
+					this.changeTitle(this.keyword)
 					this.refreshWaterfall();
 					this.$store.commit("search/setSearch", {id:this.keyword,key:"checkboxes/exact_match_for_tags",value:this.checkboxes.exact_match_for_tags})
 			},

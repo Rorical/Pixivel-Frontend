@@ -194,6 +194,7 @@
 			handleIdChanged(s) {
 				if (this.id != this.$route.query.id) {
 					this.id = this.$route.query.id;
+					
 					this.refreshImgs();
 					this.refreshWaterfall();
 				}
@@ -410,9 +411,13 @@
 			Imghispush(obj) {
 				if (obj.id) {
 					this.placeInHistory(obj)
+					this.changeTitle(obj.title)
 				}
 
-			}
+			},
+			changeTitle(title){
+				document.title = `${title} - Pixivel`
+			},
 		},
 		computed: {
 			iffold() {

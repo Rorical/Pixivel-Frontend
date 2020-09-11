@@ -57,7 +57,10 @@ Vue.use(InfiniteLoading, {
 import routerLinkA from './views/components/routerLinkA.vue'
 Vue.component("router-link-a",routerLinkA)
 Vue.use(ArgonDashboard)
-
+router.beforeEach((to, from, next) => {
+	document.title = to.meta.title ? to.meta.title : 'Pixivel'
+	next()
+})
 new Vue({
   router,
   store,

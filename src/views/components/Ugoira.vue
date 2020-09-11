@@ -1,6 +1,6 @@
 <template>
-	<div class="bigpics" :style="{'width': cliwidth + 'vmin'}">
-		<BigImgCard :image="imagea" :lazy="false" :style="{'height': cliheight + 'vmin'}" />
+	<div class="bigpics" :style="{'width': cliwidth}">
+		<BigImgCard :image="imagea" :lazy="false" :style="{'height': cliheight}" />
 	</div>
 </template>
 

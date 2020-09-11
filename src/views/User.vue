@@ -139,7 +139,8 @@
 		},
 		watch: {
 			"$route.query.id": "handleIdChanged",
-			"radio.iorb": "handleIdChanged"
+			"radio.iorb": "handleIdChanged",
+			"model":"modchange"
 		},
 		mounted(){
 			if(!this.model.user){
@@ -155,6 +156,12 @@
 			window.removeEventListener("scroll", this.handleScroll, false);
 		},
 		methods:{
+			modchange(){
+				this.changeTitle(this.model.user.name)
+			},
+			changeTitle(title){
+				document.title = `${title} - Pixivel`
+			},
 			getUser() {
 				if (!this.id) {
 					return;
