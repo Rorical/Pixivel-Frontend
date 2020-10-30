@@ -35,7 +35,8 @@
 	    data() {
 			return {
 				targetblank: storage.get("targetblank") == true?true:storage.set("targetblank",false),
-				pics:this.$store.state.mainpage.rankpics
+				pics:this.$store.state.mainpage.rankpics,
+				mainPageSanity: storage.get("mainPageSanity") == false ? false : storage.set("mainPageSanity", true),
 			}
 		},
 	    methods: {
@@ -63,7 +64,9 @@
 							$state.complete();
 							return;
 						}
-						this.pics = (response.data.illusts)
+						this.pics = this.mainPageSanity?(response.data.illusts).filter(function(o){
+						return o.sanity_level < 3
+					}):(response.data.illusts)
 						this.$store.commit("mainpage/setrankpics", this.pics)
 						$state.loaded();
 						$state.complete();

@@ -6,7 +6,7 @@
 		<div class="container-fluid mt--8">
 			<div class="row">
 				<div class="col-xl-8">
-					<template v-if="image.sanity_level < 5&&image.x_restrict==0||isR18">
+					<template v-if="image.sanity_level < Sanity&&image.x_restrict==0||isR18">
 						<BigPics v-if="image.type!='ugoira'" ref="images" :image="image" :key="imgsIdentifier" />
 						<Ugoira v-else ref="images" :image="image" :key="imgsIdentifier" />
 					</template>
@@ -141,7 +141,8 @@
 				cardWidth: 270,
 				targetblank: storage.get("targetblank") == true ? true : storage.set("targetblank", false),
 				isR18: storage.get("r18") == true ? true : storage.set("r18", false),
-				HisLen: parseInt(storage.get("HisLen") ? storage.get("HisLen") : storage.set("HisLen", "200"))
+				HisLen: parseInt(storage.get("HisLen") ? storage.get("HisLen") : storage.set("HisLen", 200)),
+				Sanity: storage.get("Sanity")?storage.get("Sanity"):storage.set("Sanity",5),
 			}
 		},
 		watch: {

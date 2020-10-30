@@ -1,7 +1,7 @@
 <template>
 	<nav ref="xscroll" class="x-list scrollbar" @mouseenter="enterxscroll" @mouseleave="leavexscroll">
 		<router-link-a :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:pic.id}}" :handle="()=>{commitDetail(pic);leavexscroll();}"
-		 v-if="pic.sanity_level < 5&&pic.x_restrict==0||isR18" :title="pic.title" :key="pic.id" class="card border-0 one"
+		 v-if="pic.sanity_level < Sanity&&pic.x_restrict==0||isR18" :title="pic.title" :key="pic.id" class="card border-0 one"
 		 v-for="pic in pics">
 			<div class="one-img" :alt="pic.title" v-lazy:background-image="replaceImg(pic.image_urls.square_medium)"></div>
 			<div class="carousel-indicators">
@@ -32,7 +32,8 @@
 			return {
 				ScrollLock: true,
 				targetblank: storage.get("targetblank") == true ? true : storage.set("targetblank", false),
-				isR18: storage.get("r18") == true ? true : storage.set("r18", false)
+				isR18: storage.get("r18") == true ? true : storage.set("r18", false),
+				Sanity: storage.get("Sanity")?storage.get("Sanity"):storage.set("Sanity",5),
 			}
 		},
 		methods: {

@@ -1,5 +1,5 @@
 <template>
-	<router-link-a :target="targetblank?'_blank':''" :handle="()=>{commitDetail(image);}" :to="{name:'作品详情',query:{id:image.id}}" v-if="image.sanity_level < 5&&image.x_restrict==0||isR18"
+	<router-link-a :target="targetblank?'_blank':''" :handle="()=>{commitDetail(image);}" :to="{name:'作品详情',query:{id:image.id}}" v-if="image.sanity_level < Sanity&&image.x_restrict==0||isR18"
 	 class="card the-img shadow--hover" v-bind:style="{ width: cardWidth + 'px', height: image.height * (cardWidth / image.width) + 'px' }">
 		<div class="spinner-box loading-imgcard" v-if="loading">
 			<div class="circle-border">
@@ -42,6 +42,7 @@
 				loading: true,
 				loadError: false,
 				isR18: storage.get("r18") == true ? true : storage.set("r18", false),
+				Sanity: storage.get("Sanity")?storage.get("Sanity"):storage.set("Sanity",5),
 				targetblank: storage.get("targetblank") == true ? true : storage.set("targetblank", false),
 			}
 		},
@@ -82,7 +83,8 @@
 				return this.replaceImg(this.image["image_urls"][this.imageType])
 			}
 		},
-		mounted() {}
+		mounted() {
+		}
 	}
 </script>
 

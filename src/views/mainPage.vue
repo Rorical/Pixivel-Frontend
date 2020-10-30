@@ -7,6 +7,7 @@
 					<div class="col-xl-8 mb-5 mb-xl-0">
 						<lRanking />
 					</div>
+				
 				<div class="col-xl-4 md-5">
 					<lTags />
 				</div>
@@ -38,6 +39,8 @@ export default {
 		rankimg: this.$store.state.mainpage.rankimg,
 		waterfallIdentifier: Math.round(Math.random() * 100),
 		cardWidth:260,
+		isR18: storage.get("r18") == true ? true : storage.set("r18", false),
+		mainPageSanity: storage.get("mainPageSanity") == false ? false : storage.set("mainPageSanity", true),
       };
     },
 	watch:{
@@ -65,7 +68,10 @@ export default {
 						$state.complete();
 						return;
 					}
-					this.rankimg = (response.data.illusts)
+					
+					this.rankimg = this.mainPageSanity?(response.data.illusts).filter(function(o){
+						return o.sanity_level < 3
+					}):(response.data.illusts)
 					this.$store.commit("mainpage/setrankimg", this.rankimg)
 					$state.loaded();
 					$state.complete();
