@@ -6,7 +6,7 @@
 		<div class="container-fluid mt--8">
 			<div class="row">
 				<div class="col-xl-8">
-					<template v-if="image.sanity_level < Sanity&&image.x_restrict==0||isR18">
+					<template v-if="!(image.tags?image.tags.find((d)=>{if(d.name=='R18'){return true}}):false)&&image.sanity_level < Sanity&&image.x_restrict==0||isR18">
 						<BigPics v-if="image.type!='ugoira'" ref="images" :image="image" :key="imgsIdentifier" />
 						<Ugoira v-else ref="images" :image="image" :key="imgsIdentifier" />
 					</template>
@@ -266,7 +266,7 @@
 									break;
 								}
 
-								if (this.xsimgs[i].sanity_level < 5 && this.xsimgs[i].x_restrict == 0 || this.isR18) {
+								if (this.xsimgs[i].sanity_level < this.Sanity && this.xsimgs[i].x_restrict == 0 || this.isR18) {
 									a++
 								}
 							}

@@ -157,7 +157,9 @@
 		},
 		methods:{
 			modchange(){
-				this.changeTitle(this.model.user.name)
+				if(this.model.user){
+					this.changeTitle(this.model.user.name)
+				}
 			},
 			changeTitle(title){
 				document.title = `${title} - Pixivel`

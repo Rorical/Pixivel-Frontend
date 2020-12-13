@@ -31,7 +31,7 @@
 				ariaonloading: this.image.type=='ugoira',
 				aria2url: storage.get("aria2") ? storage.get("aria2") : storage.set("aria2", "http://localhost:16800/jsonrpc"),
 				titleid: storage.get("titleid") == true ? true : storage.set("titleid", false),
-				downloadSq: []
+				downloadSq: [],
 			}
 		},
 		watch:{

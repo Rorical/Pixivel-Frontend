@@ -16,7 +16,8 @@
 			return {
 				aria2url : storage.get("aria2")?storage.get("aria2"):storage.set("aria2","http://localhost:16800/jsonrpc"),
 				titleid: storage.get("titleid") == true?true:storage.set("titleid",false),
-				isR18: storage.get("r18")==true?true:storage.set("r18",false)
+				isR18: storage.get("r18")==true?true:storage.set("r18",false),
+				Sanity: storage.get("Sanity")?storage.get("Sanity"):storage.set("Sanity",5),
 			}
 		},
 		computed:{
@@ -42,7 +43,7 @@
 				})
 				for(var sb = 0; sb < this.images.length; sb++){
 					var image = this.images[sb]
-					if(image.type!="ugoira" && image.type!="manga" && (image.x_restrict==0||this.isR18)){
+					if(image.type!="ugoira" && image.type!="manga" && (image.sanity_level < this.Sanity&&image.x_restrict==0||this.isR18)){
 						var imgs = this.sourceimg(image)
 						var url
 						var uri = this.aria2url.split("@")

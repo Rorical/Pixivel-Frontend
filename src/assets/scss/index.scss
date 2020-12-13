@@ -93,7 +93,7 @@
 	}
 	.the-img{
 		border-radius: 16px;
-		box-shadow: 0 0 1rem 0 rgba(136,152,170,.15)!important;
+		box-shadow: 0 0 8px rgba(0,0,0,.175)!important;
 		.img-title{
 			transition: opacity .25s ease-in-out;
 			opacity: 0;
@@ -284,6 +284,7 @@ html,body,#app,.wrapper,.main-content,.heightfull{
 			transition: 200ms;
 			position: relative;
 			z-index: 10;
+			box-shadow: 0 0 8px rgba(0,0,0,.175)!important;
 		}
 		.no-tran{
 			transition: none !important;
