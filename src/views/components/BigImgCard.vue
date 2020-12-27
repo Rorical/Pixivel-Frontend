@@ -36,14 +36,27 @@
 			}
 		},
 		methods: {
-			replaceImg(url){
-				url = url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
+			getProxy(id){
+				id = parseInt(id)
+				var purl = this.$store.getters["picproxy/getProxy"](id)
+				if(purl){
+					return purl
+				}else{
+					this.$store.commit("picproxy/setProxy",{
+						id:id
+					})
+					purl = this.$store.getters["picproxy/getProxy"](id)
+					return purl
+				}
+			},
+			replaceImg(url) {
+				url = url.replace("https://i.pximg.net/", this.getProxy(this.image.id))
 				var ua = navigator.userAgent.toLowerCase()
 				if(ua.match(/version\/([\d.]+).*safari/i)){
 					url = url.replace("_webp","")
 				}
 				return url
-			}
+			},
 		},
 		computed:{
 			source(){
@@ -58,7 +71,7 @@
 				
 			},
 			largesource(){
-				return this.image.image_urls["original"].replace("https://i.pximg.net/",CONFIG.IMAGE_PROXY_HOST)
+				return this.replaceImg(this.image.image_urls["original"])
 			}
 		},
 		mounted(){

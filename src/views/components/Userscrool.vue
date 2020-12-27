@@ -57,8 +57,21 @@
 						console.error(err);
 					});
 			},
-			replaceImg(url){
-				return url.replace("https://i.pximg.net/",CONFIG.SMALL_IMAGE_PROXY_HOST)
+			getProxy(id){
+				id = parseInt(id)
+				var purl = this.$store.getters["picproxy/getProxy"](id)
+				if(purl){
+					return purl
+				}else{
+					this.$store.commit("picproxy/setProxy",{
+						id:id
+					})
+					purl = this.$store.getters["picproxy/getProxy"](id)
+					return purl
+				}
+			},
+			replaceImg(url) {
+				return url.replace("https://i.pximg.net/", this.getProxy(this.user.user.id))
 			},
 			enterxscroll() {
 				window.addEventListener('mousewheel', this.xscroll, { passive: false });

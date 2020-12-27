@@ -3,7 +3,7 @@
 		<router-link-a :target="targetblank?'_blank':''" :to="{name:'作品详情',query:{id:pic.id}}" :handle="()=>{commitDetail(pic);leavexscroll();}"
 		 v-if="pic.sanity_level < Sanity&&pic.x_restrict==0||isR18" :title="pic.title" :key="pic.id" class="card border-0 one"
 		 v-for="pic in pics">
-			<div class="one-img" :alt="pic.title" v-lazy:background-image="replaceImg(pic.image_urls.square_medium)"></div>
+			<div class="one-img" :alt="pic.title" v-lazy:background-image="replaceImg(pic.image_urls.square_medium,pic.id)"></div>
 			<div class="carousel-indicators">
 				<h4 class="text-white">{{pic.title}}</h4>
 			</div>
@@ -47,8 +47,21 @@
 				}
 				return false
 			},
-			replaceImg(url) {
-				url = url.replace("https://i.pximg.net/", CONFIG.SMALL_IMAGE_PROXY_HOST)
+			getProxy(id){
+				id = parseInt(id)
+				var purl = this.$store.getters["picproxy/getProxy"](id)
+				if(purl){
+					return purl
+				}else{
+					this.$store.commit("picproxy/setProxy",{
+						id:id
+					})
+					purl = this.$store.getters["picproxy/getProxy"](id)
+					return purl
+				}
+			},
+			replaceImg(url,id) {
+				url = url.replace("https://i.pximg.net/", this.getProxy(id))
 				var ua = navigator.userAgent.toLowerCase()
 				if (ua.match(/version\/([\d.]+).*safari/i)) {
 					url = url.replace("_10_webp", "_70")
