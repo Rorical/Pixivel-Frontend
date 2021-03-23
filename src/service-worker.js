@@ -4,7 +4,7 @@ workbox.core.setCacheNameDetails({
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 workbox.routing.registerRoute(
   /.*\.css/,
   workbox.strategies.staleWhileRevalidate({

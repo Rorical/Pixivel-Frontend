@@ -354,8 +354,9 @@ html,body,#app,.wrapper,.main-content,.heightfull{
 	margin:auto;
 	transform: scale(0.5,0.5);
 	.circle-core{
-		background-color: #fff;
+		background-color: #FFFFFF;
 	}
+	z-index: 10;
 }
 .sticky{
 	margin-bottom: 10px;
@@ -616,4 +617,7 @@ html,body,#app,.wrapper,.main-content,.heightfull{
 .show-more{
 	margin-bottom: 20px;
 	width: 20rem;
+}
+.blur{
+	filter: blur(0.8px);
 }

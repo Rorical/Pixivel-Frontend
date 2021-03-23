@@ -1,9 +1,9 @@
 {
 	"IMAGE_PROXY_HOSTS":{
-		"https://i.pixiv.cat/":[0,0.6],
-		"https://p1.pximg.pixivel.moe/":[0.6,1]
+		"https://i.pixiv.cat/":[0,0.1],
+		"https://p1.pximg.pixivel.moe/":[0.1,1]
 		},
 	"DOWNLOAD_IMAGE_PROXY_HOST":"https://pximg.boxpaper.workers.dev/",
 	"API_HOST":"https://api.pixivel.moe/pixiv",
-	"RAND_IMG":"https://www.rrll.cc/tuceng/ecy.php"
+	"RAND_IMG":"https://api.daihan.top/api/acg"
 }

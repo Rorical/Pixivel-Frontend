@@ -107,6 +107,12 @@
 						this.$store.commit("search/setSearch", {id:this.keyword,key:"page",value:this.page})
 						$state.loaded();
 					}).catch(err => {
+						if(err.response["status"] == 403) {
+							this.$notify({
+								type: 'danger',
+								title: '请求速度过快...'
+							})
+						}
 						$state.complete();
 						console.error(err);
 					});

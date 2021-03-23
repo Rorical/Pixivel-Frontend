@@ -22,7 +22,14 @@
 			var that = this
 			var adscript = document.createElement("script");
 			adscript.type = "text\/javascript";
-			adscript.onload = function(){(adsbygoogle = window.adsbygoogle || []).push({})}
+			adscript.onload = function(){
+				try{
+					(adsbygoogle = window.adsbygoogle || []).push({})
+				}catch (error){
+					that.$refs.adbanner.innerText="是AdBlock呜呜呜好讨厌"
+					console.error(error)
+				}
+			}
 			adscript.onerror = function(e){that.$refs.adbanner.innerText="是AdBlock呜呜呜好讨厌"}
 			adscript["data-ad-client"] = "ca-pub-7564284646329791"
 			adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";

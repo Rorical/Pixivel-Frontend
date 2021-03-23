@@ -1,6 +1,6 @@
 <template>
-	<div class="bigpics" :style="{'width': cliwidth}" v-viewer="{'url': 'source', 'title':((t)=>{return image.title + '_' + t.src.substring(t.src.lastIndexOf('_')+2,t.src.lastIndexOf('.'))})}">
-		<BigImgCard :image="img" :key="index" v-for="(img,index) in sourceimg" :style="{'height': index==0?cliheight:''}" />
+	<div class="bigpics" :style="{'width': cliwidth}" v-lazy-container="{selector:'img'}" v-viewer="{'url': 'source', 'title':((t)=>{return image.title + '_' + t.src.substring(t.src.lastIndexOf('_')+2,t.src.lastIndexOf('.'))})}">
+		<BigImgCard :imgid="image.id" :image="img" :key="index" v-for="(img,index) in sourceimg" :style="{'height': index==0?cliheight:''}" />
 		<base-button ref="showbt" type="secondary" class="show-more" v-if="this.image.meta_pages&&this.image.meta_pages.length>1"
 		 @click="changeShow()">{{isShowMore?"收起":"展示更多..."}}</base-button>
 	</div>

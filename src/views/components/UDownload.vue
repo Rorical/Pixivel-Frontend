@@ -55,7 +55,7 @@
 							}
 						}
 						for(var i = 0; i < imgs.length; i++){
-							url = imgs[i].image_urls["original"]
+							url = imgs[i].image_urls["original"].replace("https", "http").replace("i.pximg.net", "210.140.92." + (Math.round(Math.random() * 12)+135))
 							var params = [
 										[url], {'header':["Referer:https://www.pixiv.net/"],'out':this.thetitle(image,url,i)}
 									]

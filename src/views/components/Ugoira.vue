@@ -30,6 +30,27 @@
 			BigImgCard
 		},
 		methods: {
+			getProxy(id){
+				id = parseInt(id)
+				var purl = this.$store.getters["picproxy/getProxy"](id)
+				if(purl){
+					return purl
+				}else{
+					this.$store.commit("picproxy/setProxy",{
+						id:id
+					})
+					purl = this.$store.getters["picproxy/getProxy"](id)
+					return purl
+				}
+			},
+			replaceImg(url) {
+				url = url.replace("https://i.pximg.net/", this.getProxy(this.image.id))
+				var ua = navigator.userAgent.toLowerCase()
+				if(ua.match(/version\/([\d.]+).*safari/i)){
+					url = url.replace("_webp","")
+				}
+				return url
+			},
 			playPics() {
 				this.imagea.base64 = this.pics[this.nowtick][0]
 				setTimeout(() => {
@@ -61,7 +82,7 @@
 						}
 						var data = response.data.ugoira_metadata
 						this.axios
-							.get(data["zip_urls"]['medium'].replace("https://i.pximg.net/", CONFIG.IMAGE_PROXY_HOST), {
+							.get(this.replaceImg(data["zip_urls"]['medium']), {
 								responseType: 'blob'
 							})
 							.then((response, state) => {

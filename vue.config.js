@@ -64,7 +64,7 @@ module.exports = {
 					interlaced: false
 				},
 			});
-		config.optimization.delete("splitChunks");
+		/*config.optimization.delete("splitChunks");
 		if (process.env.NODE_ENV === 'production') {
 			// 清除css，js版本号
 			config.output.filename('js/[name].js').end();
@@ -74,7 +74,7 @@ module.exports = {
 				filename: `css/[name].css`,
 				chunkFilename: `css/[name].css`
 			}])
-		}
+		}*/
 	},
 	configureWebpack: (config) => {
 		config.resolve.alias = {

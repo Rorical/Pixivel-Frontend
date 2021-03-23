@@ -70,6 +70,13 @@ export default new Router({
 				meta: {
 					title: 'Account - Pixivel'
 				}
+			},
+			{
+				path: '*',
+				component: () => import( /* webpackChunkName: "demo" */ './views/NotFound.vue'),
+				meta: {
+					title: '404 - Pixivel'
+				}
 			}
 		]
 	}],

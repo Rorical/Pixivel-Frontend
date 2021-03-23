@@ -40,6 +40,19 @@
 		computed: {
 		},
 		methods: {
+			getProxy(id){
+				id = parseInt(id)
+				var purl = this.$store.getters["picproxy/getProxy"](id)
+				if(purl){
+					return purl
+				}else{
+					this.$store.commit("picproxy/setProxy",{
+						id:id
+					})
+					purl = this.$store.getters["picproxy/getProxy"](id)
+					return purl
+				}
+			},
 			imageChange(){
 				this.onloading = false
 				this.ariaonloading = this.image.type=='ugoira'
@@ -68,7 +81,7 @@
 						}
 					}
 					for (var i = 0; i < imgs.length; i++) {
-						url = imgs[i].image_urls["original"]
+						url = imgs[i].image_urls["original"].replace("https", "http").replace("i.pximg.net", "210.140.92." + (Math.round(Math.random() * 12)+135))
 						var params = [
 							[url], {
 								'header': ["Referer:https://www.pixiv.net/"],
@@ -140,7 +153,7 @@
 						}
 						var data = response.data.ugoira_metadata
 						this.axios
-							.get(data["zip_urls"]['medium'].replace("https://i.pximg.net/", CONFIG.IMAGE_PROXY_HOST), {
+							.get(data["zip_urls"]['medium'].replace("https://i.pximg.net/", this.getProxy(this.image.id)), {
 								responseType: 'blob'
 							})
 							.then((response, state) => {
