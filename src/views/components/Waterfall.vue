@@ -22,14 +22,15 @@
 			}
 		},
 		watch:{
-			"images":"waterChanged"
+			"images":"waterChanged",
+			"cardWidth":"waterChanged",
+			"imageType":"waterChanged"
 		},
 		components: {
 			ImageCard
 		},
 		methods: {
 			waterChanged(){
-				
 				this.$nextTick(() => {
 					this.$redrawVueMasonry()
 				})

@@ -6,11 +6,11 @@
 	overflow-y: hidden;
 	white-space: nowrap;
 	width: 100%;
-	height: calc(21vh + 8px);
+	height: calc(21vmin + 8px);
 	.one{
 		display: inline-block;
-		width: 21vh;
-		height: 21vh;
+		width: 21vmin;
+		height: 21vmin;
 		margin-right: 8px;
 		border-radius: 10px;
 		overflow: hidden;
@@ -83,7 +83,6 @@
 
 .waterfall{
 	margin: 0 auto;
-	height: 100%;
 	overflow: hidden;
 	transition: none;
 	.waterfall-item{
@@ -172,6 +171,7 @@
 
 .main-content{
 	transition: margin 0.5s;
+	//overflow-x: hidden;
 }
 
 .bg-sb-info{

@@ -138,11 +138,13 @@
 				relatedpage: 0,
 				waterfallIdentifier: Math.round(Math.random() * 100),
 				relateimgs: [],
-				cardWidth: 270,
+				cardWidth: this.getCardWidth(document.documentElement.clientWidth),
+				screenWidth: document.documentElement.clientWidth,
+				waterfallResponsive: document.documentElement.clientWidth > 767,
 				targetblank: storage.get("targetblank") == true ? true : storage.set("targetblank", false),
 				isR18: storage.get("r18") == true ? true : storage.set("r18", false),
 				HisLen: parseInt(storage.get("HisLen") ? storage.get("HisLen") : storage.set("HisLen", 200)),
-				Sanity: storage.get("Sanity")?storage.get("Sanity"):storage.set("Sanity",5),
+				Sanity: storage.get("Sanity") ? storage.get("Sanity") : storage.set("Sanity", 5),
 			}
 		},
 		watch: {
@@ -150,7 +152,25 @@
 				handler: "handleIdChanged",
 				immediate: false,
 			},
-			"image": "Imghispush"
+			"image": "Imghispush",
+			screenWidth(width) {
+				if (this.resizeTimer) {
+					clearTimeout(this.resizeTimer);
+				}
+				this.resizeTimer = setTimeout(() => {
+					this.screenWidth = width;
+					this.scrollTop = document.documentElement.scrollTop;
+					if (this.screenWidth <= 767) {
+						this.waterfallResponsive = false;
+					} else {
+						this.waterfallResponsive = true;
+					}
+					this.$nextTick(() => {
+						this.cardWidth = this.getCardWidth(this.screenWidth);
+						document.documentElement.scrollTop = this.scrollTop
+					});
+				}, 300);
+			}
 		},
 		created() {
 			this.image = this.findById()["image"]
@@ -195,21 +215,21 @@
 			handleIdChanged(s) {
 				if (this.id != this.$route.query.id) {
 					this.id = this.$route.query.id;
-					
+
 					this.refreshImgs();
 					this.refreshWaterfall();
 				}
 
 
 			},
-			getProxy(id){
+			getProxy(id) {
 				id = parseInt(id)
 				var purl = this.$store.getters["picproxy/getProxy"](id)
-				if(purl){
+				if (purl) {
 					return purl
-				}else{
-					this.$store.commit("picproxy/setProxy",{
-						id:id
+				} else {
+					this.$store.commit("picproxy/setProxy", {
+						id: id
 					})
 					purl = this.$store.getters["picproxy/getProxy"](id)
 					return purl
@@ -429,8 +449,27 @@
 				}
 
 			},
-			changeTitle(title){
+			changeTitle(title) {
 				document.title = `${title} - Pixivel`
+			},
+			getCardWidth(width) {
+				if (width >= 768) {
+					return 280;
+				} else if (width >= 515 && width < 768) {
+					return 210;
+				} else if (width >= 423 && width < 515) {
+					return 170;
+				} else if (width >= 361 && width < 423) {
+					return 141;
+				} else if (width >= 321 && width < 361) {
+					return 210;
+				} else if (width < 321) {
+					return 210;
+				}
+
+			},
+			windowResized() {
+				this.screenWidth = document.documentElement.clientWidth;
 			},
 		},
 		computed: {
@@ -453,12 +492,16 @@
 		},
 		mounted() {
 			//window.addEventListener("scroll", this.handleScroll, false);
+			this.$nextTick(() => {
+				window.addEventListener("resize", this.windowResized, false);
+			});
 		},
 		beforeDestroy() {
 			//window.removeEventListener("scroll", this.handleScroll, false);
 		},
 		destroyed() {
 			//window.removeEventListener("scroll", this.handleScroll, false);
+			window.removeEventListener("resize", this.windowResized, false);
 		}
 	};
 </script>

@@ -123,7 +123,9 @@
 				},
 				imgs:[],
 				bookmarks:[],
-				cardWidth:265,
+				cardWidth: this.getCardWidth(document.documentElement.clientWidth),
+				screenWidth: document.documentElement.clientWidth,
+				waterfallResponsive: document.documentElement.clientWidth > 767,
 				page: 0,
 				waterfallIdentifier: Math.round(Math.random() * 100),
 				xsimgsIdentifier: Math.round(Math.random() * 100)
@@ -140,7 +142,25 @@
 		watch: {
 			"$route.query.id": "handleIdChanged",
 			"radio.iorb": "handleIdChanged",
-			"model":"modchange"
+			"model":"modchange",
+			screenWidth(width) {
+				if (this.resizeTimer) {
+					clearTimeout(this.resizeTimer);
+				}
+				this.resizeTimer = setTimeout(() => {
+					this.screenWidth = width;
+					this.scrollTop = document.documentElement.scrollTop;
+					if (this.screenWidth <= 767) {
+						this.waterfallResponsive = false;
+					} else {
+						this.waterfallResponsive = true;
+					}
+					this.$nextTick(() => {
+						this.cardWidth = this.getCardWidth(this.screenWidth);
+						document.documentElement.scrollTop = this.scrollTop
+					});
+				}, 300);
+			}
 		},
 		mounted(){
 			if(!this.model.user){
@@ -151,9 +171,13 @@
 			this.$nextTick(() => {
 				window.scrollTo(0, scroll)
 			})
+			this.$nextTick(() => {
+				window.addEventListener("resize", this.windowResized, false);
+			});
 		},
 		destroyed() {
 			window.removeEventListener("scroll", this.handleScroll, false);
+			window.removeEventListener("resize", this.windowResized, false);
 		},
 		methods:{
 			modchange(){
@@ -332,7 +356,26 @@
 			},
 			findById(){
 				return this.$store.getters["user/findById"](this.id)
-			}
+			},
+			getCardWidth(width) {
+				if (width >= 768) {
+					return 280;
+				} else if (width >= 515 && width < 768) {
+					return 210;
+				} else if (width >= 423 && width < 515) {
+					return 170;
+				} else if (width >= 361 && width < 423) {
+					return 141;
+				} else if (width >= 321 && width < 361) {
+					return 210;
+				} else if (width < 321) {
+					return 210;
+				}
+			
+			},
+			windowResized() {
+				this.screenWidth = document.documentElement.clientWidth;
+			},
 		},
 		computed:{
 			background_image_url(){

@@ -53,7 +53,9 @@
 				images:[],
 				page: 0,
 				waterfallIdentifier: Math.round(Math.random() * 100),
-				cardWidth:265,
+				cardWidth: this.getCardWidth(document.documentElement.clientWidth),
+				screenWidth: document.documentElement.clientWidth,
+				waterfallResponsive: document.documentElement.clientWidth > 767,
 				checkboxes:{
 					exact_match_for_tags: false,
 					searchforUser:false
@@ -73,6 +75,24 @@
 				immediate: false,
 				deep: true
 			},
+			screenWidth(width) {
+				if (this.resizeTimer) {
+					clearTimeout(this.resizeTimer);
+				}
+				this.resizeTimer = setTimeout(() => {
+					this.screenWidth = width;
+					this.scrollTop = document.documentElement.scrollTop;
+					if (this.screenWidth <= 767) {
+						this.waterfallResponsive = false;
+					} else {
+						this.waterfallResponsive = true;
+					}
+					this.$nextTick(() => {
+						this.cardWidth = this.getCardWidth(this.screenWidth);
+						document.documentElement.scrollTop = this.scrollTop
+					});
+				}, 300);
+			}
 		},
 		methods: {
 			changeTitle(title){
@@ -151,7 +171,25 @@
 				}
 				
 			},
+			getCardWidth(width) {
+				if (width >= 768) {
+					return 280;
+				} else if (width >= 515 && width < 768) {
+					return 210;
+				} else if (width >= 423 && width < 515) {
+					return 170;
+				} else if (width >= 361 && width < 423) {
+					return 141;
+				} else if (width >= 321 && width < 361) {
+					return 210;
+				} else if (width < 321) {
+					return 210;
+				}
 			
+			},
+			windowResized() {
+				this.screenWidth = document.documentElement.clientWidth;
+			},
 		},
 		mounted(){
 			window.addEventListener("scroll", this.handleScroll, false);
@@ -162,10 +200,14 @@
 				})
 				
 			//},0)
+			this.$nextTick(() => {
+				window.addEventListener("resize", this.windowResized, false);
+			});
 			
 		},
 		destroyed() {
 			window.removeEventListener("scroll", this.handleScroll, false);
+			window.removeEventListener("resize", this.windowResized, false);
 		}
 	};
 </script>
