@@ -126,7 +126,11 @@
 		methods: {
 			infiniteHandler($state) {
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost({
+            page: this.page,
+            mode: this.mode,
+            date: this.dates
+          }), {
 						params: {
 							type: "rank",
 							page: this.page,

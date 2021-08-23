@@ -1,9 +1,12 @@
 {
-	"IMAGE_PROXY_HOSTS":{
-		"https://i.pixiv.cat/":[0,0.1],
-		"https://proxy.pixivel.moe/":[0.1,1]
-		},
-	"DOWNLOAD_IMAGE_PROXY_HOST":"https://pximg.boxpaper.workers.dev/",
-	"API_HOST":"https://api.pixivel.moe/pixiv",
+	"IMAGE_PROXY_HOSTS":[
+		"https://proxy-jp1.pixivel.moe/",
+		"https://proxy.pixivel.moe/"
+		],
+	"DOWNLOAD_IMAGE_PROXY_HOST":"https://pximg.shugetsu.workers.dev/",
+	"API_HOSTS":[
+		"https://api.pixivel.moe/pixiv",
+		"https://api-jp1.pixivel.moe/pixiv"
+	],
 	"RAND_IMG":"https://api.daihan.top/api/acg"
 }

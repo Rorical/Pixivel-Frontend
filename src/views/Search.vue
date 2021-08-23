@@ -107,7 +107,11 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost({
+            word: this.keyword,
+            page: this.page,
+            mode: this.checkboxes.exact_match_for_tags ? "exact_match_for_tags" : "partial_match_for_tags",
+          }), {
 						params: {
 							type: "search",
 							word: this.keyword,

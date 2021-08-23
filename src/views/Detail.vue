@@ -191,7 +191,7 @@
 					return
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.id), {
 						params: {
 							type: "illust",
 							id: this.id
@@ -221,19 +221,6 @@
 				}
 
 
-			},
-			getProxy(id) {
-				id = parseInt(id)
-				var purl = this.$store.getters["picproxy/getProxy"](id)
-				if (purl) {
-					return purl
-				} else {
-					this.$store.commit("picproxy/setProxy", {
-						id: id
-					})
-					purl = this.$store.getters["picproxy/getProxy"](id)
-					return purl
-				}
 			},
 			replaceImg(url) {
 				return url.replace("https://i.pximg.net/", this.getProxy(this.id))
@@ -269,7 +256,7 @@
 					return
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.image.user.id), {
 						params: {
 							type: "member_illust",
 							id: this.image.user.id,
@@ -325,7 +312,7 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.id), {
 						params: {
 							type: "related",
 							page: this.relatedpage,

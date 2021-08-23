@@ -40,19 +40,6 @@
 		computed: {
 		},
 		methods: {
-			getProxy(id){
-				id = parseInt(id)
-				var purl = this.$store.getters["picproxy/getProxy"](id)
-				if(purl){
-					return purl
-				}else{
-					this.$store.commit("picproxy/setProxy",{
-						id:id
-					})
-					purl = this.$store.getters["picproxy/getProxy"](id)
-					return purl
-				}
-			},
 			imageChange(){
 				this.onloading = false
 				this.ariaonloading = this.image.type=='ugoira'
@@ -141,7 +128,7 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.image.id), {
 						params: {
 							type: "ugoira_metadata",
 							id: this.image.id

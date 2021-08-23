@@ -193,7 +193,7 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.id), {
 						params: {
 							type: "member",
 							id: this.id,
@@ -215,7 +215,7 @@
 			},
 			xScrollinit($state){
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.id), {
 						params: {
 							type: "member_illust",
 							id: this.id,
@@ -240,7 +240,7 @@
 				var scroll = this.$store.state.user.scroll[this.id]?this.$store.state.user.scroll[this.id]:0
 				if(this.radio.iorb == "i"){
 					this.axios
-						.get(CONFIG.API_HOST, {
+						.get(this.getApiHost(this.id), {
 							params: {
 								type: "member_illust",
 								id: this.id,
@@ -266,7 +266,7 @@
 						});
 				}else{
 					this.axios
-						.get(CONFIG.API_HOST, {
+						.get(this.getApiHost(this.id), {
 							params: {
 								type: "favorite",
 								id: this.id,
@@ -293,19 +293,6 @@
 							$state.complete();
 							console.error(err.response.status);
 						});
-				}
-			},
-			getProxy(id){
-				id = parseInt(id)
-				var purl = this.$store.getters["picproxy/getProxy"](id)
-				if(purl){
-					return purl
-				}else{
-					this.$store.commit("picproxy/setProxy",{
-						id:id
-					})
-					purl = this.$store.getters["picproxy/getProxy"](id)
-					return purl
 				}
 			},
 			replaceImg(url) {

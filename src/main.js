@@ -30,6 +30,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import qs from "qs"
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
+import getProxy from "@/utils/getProxy";
 //import * as Sentry from '@sentry/browser';
 //import { Vue as VueIntegration } from '@sentry/integrations';
 import './registerServiceWorker'
@@ -62,6 +63,8 @@ router.beforeEach((to, from, next) => {
 	document.title = to.meta.title ? to.meta.title : 'Pixivel'
 	next()
 })
+Vue.use(getProxy)
+
 new Vue({
   router,
   store,

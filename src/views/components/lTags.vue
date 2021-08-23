@@ -64,7 +64,7 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost("tags"), {
 						params: {
 							type: "tags",
 							}

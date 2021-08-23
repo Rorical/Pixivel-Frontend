@@ -30,19 +30,6 @@
 			BigImgCard
 		},
 		methods: {
-			getProxy(id){
-				id = parseInt(id)
-				var purl = this.$store.getters["picproxy/getProxy"](id)
-				if(purl){
-					return purl
-				}else{
-					this.$store.commit("picproxy/setProxy",{
-						id:id
-					})
-					purl = this.$store.getters["picproxy/getProxy"](id)
-					return purl
-				}
-			},
 			replaceImg(url) {
 				url = url.replace("https://i.pximg.net/", this.getProxy(this.image.id))
 				var ua = navigator.userAgent.toLowerCase()
@@ -70,7 +57,7 @@
 					title: '开始加载动图压缩包'
 				})
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost(this.image.id), {
 						params: {
 							type: "ugoira_metadata",
 							id: this.image.id

@@ -7,7 +7,6 @@ import mainpage from './modules/mainpage';
 import search from './modules/search';
 import user from './modules/user';
 
-import picproxy from './modules/picproxy';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -17,7 +16,6 @@ export default new Vuex.Store({
 		detail,
 		mainpage,
 		search,
-		user,
-		picproxy
+		user
 	}
 })

@@ -54,7 +54,7 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost("rank"), {
 						params: {
 							type: "rank",
 							}

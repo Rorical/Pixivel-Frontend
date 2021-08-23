@@ -47,19 +47,6 @@
 			}
 		},
 		methods: {
-			getProxy(id){
-				id = parseInt(id)
-				var purl = this.$store.getters["picproxy/getProxy"](id)
-				if(purl){
-					return purl
-				}else{
-					this.$store.commit("picproxy/setProxy",{
-						id:id
-					})
-					purl = this.$store.getters["picproxy/getProxy"](id)
-					return purl
-				}
-			},
 			replaceImg(url) {
 				return url.replace("https://i.pximg.net/", this.getProxy(this.image.id))
 			},

@@ -78,7 +78,7 @@
 					return;
 				}
 				this.axios
-					.get(CONFIG.API_HOST, {
+					.get(this.getApiHost("illust_recommended"), {
 						params: {
 							type: "illust_recommended",
 						}
@@ -172,6 +172,8 @@
 			this.$nextTick(() => {
 				window.addEventListener("resize", this.windowResized, false);
 			});
+
+			console.log(this.getProxy(323123235))
 		},
 		destroyed() {
 			window.removeEventListener("resize", this.windowResized, false);
