@@ -8,5 +8,6 @@
 		"https://api.pixivel.moe/pixiv",
 		"https://api-jp1.pixivel.moe/pixiv"
 	],
-	"RAND_IMG":"https://api.daihan.top/api/acg"
+	"RAND_IMG":"https://api.daihan.top/api/acg",
+	"BAN": [83117983, 86300984, 89148536, 89408759, 89574034, 89789146, 89990632, 90745739]
 }

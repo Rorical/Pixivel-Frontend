@@ -145,6 +145,7 @@
 				isR18: storage.get("r18") == true ? true : storage.set("r18", false),
 				HisLen: parseInt(storage.get("HisLen") ? storage.get("HisLen") : storage.set("HisLen", 200)),
 				Sanity: storage.get("Sanity") ? storage.get("Sanity") : storage.set("Sanity", 5),
+        Banned: false,
 			}
 		},
 		watch: {
@@ -173,6 +174,14 @@
 			}
 		},
 		created() {
+			if (this.isIdBanned(this.id)) {
+        this.$notify({
+          type: 'danger',
+          title: "图片已被列入黑名单！",
+          message: "我哪里知道为什么会这样啊！"
+        })
+        this.$router.push({name:'首页'})
+      }
 			this.image = this.findById()["image"]
 			this.xsimgs = this.findById()["xsimgs"]
 			this.relatedpage = this.findById()["relatedpage"]
@@ -407,6 +416,9 @@
 					})
 				}
 			},
+      isIdBanned(id) {
+        return CONFIG.BAN.includes(parseInt(id))
+      },
 			findById() {
 				return this.$store.getters["detail/findById"](this.id)
 			},
